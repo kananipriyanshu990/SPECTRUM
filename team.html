@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Core Team | SPECTRUM CLUB</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            dark: {
+              base: '#080c14',
+              card: '#0f172a',
+              cardHover: '#152033',
+              border: '#1e293b',
+            },
+            tech: {
+              blue: '#38bdf8',
+              blueHover: '#0ea5e9',
+              blueMuted: 'rgba(56, 189, 248, 0.1)',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Hero Lights Animations */
+    @keyframes driftOne {
+      0% { transform: translate(-20%, -20%) scale(1); opacity: 0.25; }
+      33% { transform: translate(30%, 20%) scale(1.3); opacity: 0.45; }
+      66% { transform: translate(-10%, 40%) scale(0.9); opacity: 0.2; }
+      100% { transform: translate(-20%, -20%) scale(1); opacity: 0.25; }
+    }
+    @keyframes driftTwo {
+      0% { transform: translate(30%, 30%) scale(0.9); opacity: 0.2; }
+      40% { transform: translate(-25%, -15%) scale(1.25); opacity: 0.45; }
+      75% { transform: translate(15%, -30%) scale(1.1); opacity: 0.3; }
+      100% { transform: translate(30%, 30%) scale(0.9); opacity: 0.2; }
+    }
+    @keyframes driftThree {
+      0% { transform: translate(10%, -30%) scale(1.1); opacity: 0.3; }
+      50% { transform: translate(-20%, 25%) scale(0.85); opacity: 0.4; }
+      100% { transform: translate(10%, -30%) scale(1.1); opacity: 0.3; }
+    }
+    @keyframes driftFour {
+      0% { transform: translate(-30%, 20%) scale(0.8); opacity: 0.15; }
+      50% { transform: translate(25%, -20%) scale(1.2); opacity: 0.35; }
+      100% { transform: translate(-30%, 20%) scale(0.8); opacity: 0.15; }
+    }
+
+    .ambient-light-1 { animation: driftOne 16s ease-in-out infinite alternate; }
+    .ambient-light-2 { animation: driftTwo 20s ease-in-out infinite alternate; }
+    .ambient-light-3 { animation: driftThree 18s ease-in-out infinite alternate; }
+    .ambient-light-4 { animation: driftFour 22s ease-in-out infinite alternate; }
+
+    /* Clockwise Rotating RGB Border Beam Hover Effect */
+    @keyframes rotateRGB {
+      0% { transform: translate(-50%, -50%) rotate(0deg); }
+      100% { transform: translate(-50%, -50%) rotate(360deg); }
+    }
+
+    .rgb-card {
+      position: relative;
+      border-radius: 1rem;
+      padding: 1.8px;
+      background: #1e293b;
+      overflow: hidden;
+      transition: box-shadow 0.4s ease, transform 0.3s ease;
+    }
+
+    .rgb-card::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 280%;
+      height: 280%;
+      background: conic-gradient(
+        from 0deg,
+        transparent 0deg,
+        #38bdf8 60deg,
+        #a855f7 120deg,
+        #ec4899 180deg,
+        #10b981 240deg,
+        #f59e0b 300deg,
+        transparent 360deg
+      );
+      transform: translate(-50%, -50%) rotate(0deg);
+      opacity: 0;
+      transition: opacity 0.45s ease;
+      pointer-events: none;
+    }
+
+    .rgb-card:hover::before {
+      opacity: 1;
+      animation: rotateRGB 3.5s linear infinite;
+    }
+
+    .rgb-card:hover {
+      box-shadow: 0 10px 28px -8px rgba(56, 189, 248, 0.28);
+      transform: translateY(-2px);
+    }
+
+    .rgb-card-inner {
+      position: relative;
+      z-index: 10;
+      background-color: #0f172a;
+      border-radius: calc(1rem - 1.8px);
+      height: 100%;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+  </style>
+</head>
+<body class="bg-dark-base text-slate-300 font-sans antialiased min-h-screen selection:bg-tech-blue selection:text-slate-900">
+
+  <!-- ================= NAVIGATION ================= -->
+  <nav class="sticky top-0 z-50 bg-dark-base/85 backdrop-blur-md border-b border-dark-border">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      
+      <!-- Brand Logo: SPECTRUM CLUB -->
+      <a href="index.html" class="flex items-center space-x-3">
+        <div class="bg-dark-card border border-dark-border p-2 rounded-lg text-tech-blue">
+          <i data-lucide="cpu" class="w-6 h-6"></i>
+        </div>
+        <div>
+          <span class="font-black text-xl sm:text-2xl text-white tracking-wider">SPECTRUM <span class="text-tech-blue">CLUB</span></span>
+          <span class="block text-[10px] tracking-widest uppercase text-slate-400 font-medium">Electronics & Robotics Society</span>
+        </div>
+      </a>
+
+      <!-- Navigation Links -->
+      <div class="flex items-center space-x-4 sm:space-x-6 text-sm font-medium">
+        <a href="index.html" class="text-slate-400 hover:text-white transition">Home</a>
+        <a href="index.html#about" class="text-slate-400 hover:text-white transition">About</a>
+        <a href="index.html#domains" class="text-slate-400 hover:text-white transition">Domains</a>
+        <a href="team.html" class="text-tech-blue font-semibold">Team</a>
+        <a href="index.html#contact" class="text-slate-400 hover:text-white transition">Contact</a>
+
+        <a href="events_n_updates.html" class="bg-tech-blue hover:bg-tech-blueHover text-slate-900 font-bold px-3.5 py-1.5 rounded-lg text-xs sm:text-sm transition flex items-center space-x-1.5 shadow-md shadow-tech-blue/20">
+          <i data-lucide="calendar" class="w-3.5 h-3.5"></i>
+          <span>Events & Updates</span>
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ================= HERO ================= -->
+  <header class="relative py-20 sm:py-24 border-b border-dark-border text-center overflow-hidden bg-dark-base">
+    <div class="absolute inset-0 pointer-events-none overflow-hidden z-0">
+      <div class="ambient-light-1 absolute top-1/4 left-1/4 w-[380px] h-[380px] rounded-full bg-sky-500 blur-[120px]"></div>
+      <div class="ambient-light-2 absolute top-1/3 right-1/4 w-[420px] h-[420px] rounded-full bg-purple-600 blur-[130px]"></div>
+      <div class="ambient-light-3 absolute -bottom-10 left-1/3 w-[350px] h-[350px] rounded-full bg-emerald-500 blur-[110px]"></div>
+      <div class="ambient-light-4 absolute top-10 right-1/3 w-[360px] h-[360px] rounded-full bg-rose-500 blur-[125px]"></div>
+    </div>
+
+    <div class="max-w-4xl mx-auto px-4 relative z-10 space-y-3">
+      <div class="inline-flex items-center space-x-2 bg-dark-card/80 backdrop-blur-md border border-slate-700/60 text-tech-blue px-3.5 py-1 rounded-full text-xs font-mono uppercase tracking-widest shadow-lg">
+        <i data-lucide="users" class="w-3.5 h-3.5"></i>
+        <span>Members Directory</span>
+      </div>
+      <h1 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight drop-shadow-md">
+        The Core Team
+      </h1>
+      <p class="text-slate-300 text-xs sm:text-sm max-w-lg mx-auto leading-relaxed drop-shadow">
+        The faculty patron, student leaders, and engineers directing the hardware wings, laboratory research, and competitive squads.
+      </p>
+    </div>
+  </header>
+
+  <!-- ================= MAIN CONTENT (30% REDUCED CONTAINER & WIDER CARD GAPS) ================= -->
+  <main class="max-w-4xl mx-auto px-4 sm:px-6 py-16 space-y-20">
+
+    <!-- ============================================================ -->
+    <!-- SECTION 0: FOUNDER FACULTY MEMBER (1 CARD)                   -->
+    <!-- ============================================================ -->
+    <section>
+      <div class="mb-8 pb-3 border-b border-dark-border">
+        <div class="inline-flex items-center space-x-2 text-tech-blue text-[11px] font-mono font-bold uppercase tracking-wider mb-1">
+          <span class="w-2 h-2 rounded-full bg-tech-blue animate-pulse"></span>
+          <span>Institutional Patronage</span>
+        </div>
+        <h2 class="text-xl sm:text-2xl font-extrabold text-white tracking-tight">Founder Faculty Member</h2>
+      </div>
+
+      <!-- Compact 30% Smaller Single Card -->
+      <div class="max-w-[310px] mx-auto">
+        <div class="rgb-card">
+          <div class="rgb-card-inner p-4">
+            <div class="w-full aspect-square rounded-lg bg-dark-base border border-dark-border flex flex-col items-center justify-center text-slate-500 overflow-hidden mb-3.5">
+              <i data-lucide="user" class="w-12 h-12 text-tech-blue/50 mb-1"></i>
+              <span class="text-[11px] font-mono tracking-wider text-slate-400 font-semibold uppercase">Faculty Photo</span>
+            </div>
+            <div class="space-y-2">
+              <span class="inline-block px-2 py-0.5 rounded bg-tech-blueMuted text-tech-blue text-[9px] font-mono font-bold uppercase tracking-wider">
+                Patron & Chief Mentor
+              </span>
+              <div>
+                <h3 class="text-lg font-bold text-white tracking-tight leading-snug">Dr. S. K. Mukherjee</h3>
+                <p class="text-[11px] text-tech-blue font-mono font-semibold mt-0.5">Faculty In-Charge & Founder</p>
+              </div>
+              <p class="text-[11px] text-slate-400 leading-relaxed">
+                Professor, Department of ECE. Established SPECTRUM CLUB to cultivate indigenous hardware fabrication and robotics research.
+              </p>
+              <div class="pt-2.5 border-t border-dark-border flex items-center justify-between text-slate-400">
+                <span class="text-[10px] font-mono text-slate-500">ECE Dept. Lab</span>
+                <div class="flex items-center space-x-2.5">
+                  <a href="mailto:advisor.spectrum@college.edu" class="hover:text-tech-blue transition"><i data-lucide="mail" class="w-3.5 h-3.5"></i></a>
+                  <a href="#" class="hover:text-tech-blue transition"><i data-lucide="globe" class="w-3.5 h-3.5"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- SECTION 1: SENIOR TEAM: 3RD YEAR                             -->
+    <!-- ============================================================ -->
+    <section>
+      <div class="mb-10 pb-3 border-b border-dark-border">
+        <div class="inline-flex items-center space-x-2 text-tech-blue text-[11px] font-mono font-bold uppercase tracking-wider mb-1">
+          <span class="w-2 h-2 rounded-full bg-tech-blue animate-pulse"></span>
+          <span>Core Administration & Domain Leads</span>
+        </div>
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">SENIOR TEAM: 3RD YEAR</h2>
+      </div>
+
+      <!-- 1. PRESIDENT (1) & VICE PRESIDENT (1) -->
+      <div class="grid md:grid-cols-2 gap-x-12 sm:gap-x-16 gap-y-8 mb-12">
+        
+        <!-- President Card (1) -->
+        <div class="rgb-card">
+          <div class="rgb-card-inner p-4">
+            <div class="w-full aspect-square rounded-lg bg-dark-base border border-dark-border flex flex-col items-center justify-center text-slate-500 overflow-hidden mb-3.5">
+              <i data-lucide="image" class="w-10 h-10 text-tech-blue/40 mb-1"></i>
+              <span class="text-[10px] font-mono text-slate-400 font-bold uppercase">President Photo</span>
+            </div>
+            <div class="space-y-2">
+              <div class="flex items-center justify-between">
+                <span class="text-[9px] font-mono uppercase font-bold text-tech-blue bg-tech-blueMuted px-2 py-0.5 rounded">Executive Lead</span>
+                <span class="text-[10px] text-slate-500 font-mono">3rd Year • EEE</span>
+              </div>
+              <div>
+                <h3 class="text-lg font-bold text-white tracking-tight">Aarav Sharma</h3>
+                <p class="text-xs text-tech-blue font-mono font-bold">Club President</p>
+              </div>
+              <p class="text-[11px] text-slate-300 leading-relaxed">
+                Directs annual robotics initiatives, institutional partnerships, and competitive delegations for national engineering leagues.
+              </p>
+              <div class="pt-2.5 border-t border-dark-border flex items-center justify-between text-slate-400">
+                <span class="text-[10px] font-mono text-slate-500">Spec: ROS 2 & Autonomy</span>
+                <div class="flex items-center space-x-2.5">
+                  <a href="#" class="hover:text-tech-blue transition"><i data-lucide="linkedin" class="w-3.5 h-3.5"></i></a>
+                  <a href="#" class="hover:text-tech-blue transition"><i data-lucide="github" class="w-3.5 h-3.5"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Vice President Card (1) -->
+        <div class="rgb-card">
+          <div class="rgb-card-inner p-4">
+            <div class="w-full aspect-square rounded-lg bg-dark-base border border-dark-border flex flex-col items-center justify-center text-slate-500 overflow-hidden mb-3.5">
+              <i data-lucide="image" class="w-10 h-10 text-tech-blue/40 mb-1"></i>
+              <span class="text-[10px] font-mono text-slate-400 font-bold uppercase">VP Photo</span>
+            </div>
+            <div class="space-y-2">
+              <div class="flex items-center justify-between">
+                <span class="text-[9px] font-mono uppercase font-bold text-tech-blue bg-tech-blueMuted px-2 py-0.5 rounded">Executive Lead</span>
+                <span class="text-[10px] text-slate-500 font-mono">3rd Year • ECE</span>
+              </div>
+              <div>
+                <h3 class="text-lg font-bold text-white tracking-tight">Rohan Kumar</h3>
+                <p class="text-xs text-tech-blue font-mono font-bold">Vice President</p>
+              </div>
+              <p class="text-[11px] text-slate-300 leading-relaxed">
+                Manages core technical wings, workshop syllabus delivery, hardware inventories, and cross-domain project reviews.
+              </p>
+              <div class="pt-2.5 border-t border-dark-border flex items-center justify-between text-slate-400">
+                <span class="text-[10px] font-mono text-slate-500">Spec: Hardware & VLSI</span>
+                <div class="flex items-center space-x-2.5">
+                  <a href="#" class="hover:text-tech-blue transition"><i data-lucide="linkedin" class="w-3.5 h-3.5"></i></a>
+                  <a href="#" class="hover:text-tech-blue transition"><i data-lucide="github" class="w-3.5 h-3.5"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- 2. HEADS: EXACTLY 6 CARDS -->
+      <div class="mb-12">
+        <h4 class="text-xs font-mono font-bold uppercase text-slate-400 tracking-wider mb-4 flex items-center gap-1.5">
+          <i data-lucide="shield" class="w-3.5 h-3.5 text-tech-blue"></i>
+          <span>Heads (6 Members)</span>
+        </h4>
+
+        <div class="grid md:grid-cols-2 gap-x-12 sm:gap-x-16 gap-y-8">
+          
+          <!-- Head 1 -->
+          <div class="rgb-card">
+            <div class="rgb-card-inner p-4">
+              <div class="w-full aspect-square rounded-lg bg-dark-base border border-dark-border flex flex-col items-center justify-center text-slate-500 overflow-hidden mb-3">
+                <i data-lucide="image" class="w-8 h-8 text-tech-blue/30 mb-0.5"></i>
+                <span class="text-[9px] font-mono text-slate-400 uppercase">Photo</span>
+              </div>
+              <div class="space-y-1">
+                <span class="text-[10px] font-mono text-slate-500 uppercase">3rd Year • ECE</span>
+                <h4 class="text-base font-bold text-white">Vikram Singh</h4>
+                <p class="text-xs text-tech-blue font-mono font-semibold">Head of Embedded Systems</p>
+                <p class="text-[11px] text-slate-400 leading-relaxed">Directs firmware engineering, RTOS tasks, and microcontroller bus protocols.</p>
+                <div class="pt-2 border-t border-dark-border flex justify-between items-center text-slate-400">
+                  <span class="text-[10px] font-mono text-slate-500">FreeRTOS / STM32</span>
+                  <div class="flex space-x-2">
+                    <a href="#" class="hover:text-tech-blue"><i data-lucide="linkedin" class="w-3 h-3"></i></a>
+                    <a href="#" class="hover:text-tech-blue"><i data-lucide="github" class="w-3 h-3"></i></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Head 2 -->
+          <div class="rgb-card">
+            <div class="rgb-card-inner p-4">
+              <div class="w-full aspect-square rounded-lg bg-dark-base border border-dark-border flex flex-col items-center justify-center text-slate-500 overflow-hidden mb-3">
+                <i data-lucide="image" class="w-8 h-8 text-tech-blue/30 mb-0.5"></i>
+                <span class="text-[9px] font-mono text-slate-400 uppercase">Photo</span>
+              </div>
+              <div class="space-y-1">
+                <span class="text-[10px] font-mono text-slate-500 uppercase">3rd Year • Mechanical</span>
+                <h4 class="text-base font-bold text-white">Neha Patel</h4>
+                <p class="text-xs text-tech-blue font-mono font-semibold">Head of Robotics</p>
+                <p class="text-[11px] text-slate-400 leading-relaxed">Oversees mobile kinematic modeling, Gazebo physics, and LiDAR SLAM.</p>
+                <div class="pt-2 border-t border-dark-border flex justify-between items-center text-slate-400">
+                  <span class="text-[10px] font-mono text-slate-500">ROS 2 / Nav2</span>
+                  <div class="flex space-x-2">
+                    <a href="#" class="hover:text-tech-blue"><i data-lucide="linkedin" class="w-3 h-3"></i></a>
+                    <a href="#" class="hover:text-tech-blue"><i data-lucide="github" class="w-3 h-3"></i></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Head 3 -->
+          <div class="rgb-card">
+            <div class="rgb-card-inner p-4">
+              <div class="w-full aspect-square rounded-lg bg-dark-base border border-dark-border flex flex-col items-center justify-center text-slate-500 overflow-hidden mb-3">
+                <i data-lucide="image" class="w-8 h-8 text-tech-blue/30 mb-0.5"></i>
+                <span class="text-[9px] font-mono text-slate-400 uppercase">Photo</span>
+              </div>
+              <div class="space-y-1">
+                <span class="text-[10px] font-mono text-slate-500 uppercase">3rd Year • ECE</span>
+                <h4 class="text-base font-bold text-white">Ananya Mishra</h4>
+                <p class="text-xs text-tech-blue font-mono font-semibold">Head of VLSI</p>
+                <p class="text-[11px] text-slate-400 leading-relaxed">Directs RTL design, FPGA synthesis on Vivado, and timing verification.</p>
+                <div class="pt-2 border-t border-dark-border flex justify-between items-center text-slate-400">
+                  <span class="text-[10px] font-mono text-slate-500">Verilog / FPGAs</span>
+                  <div class="flex space-x-2">
+                    <a href="#" class="hover:text-tech-blue"><i data-lucide="linkedin" class="w-3 h-3"></i></a>
+                    <a href="#" class="hover:text-tech-blue"><i data-lucide="github" class="w-3 h-3"></i></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Head 4 -->
+          <div class="rgb-card">
+            <div class="rgb-card-inner p-4">
+              <div class="w-full aspect-square rounded-lg bg-dark-base border border-dark-border flex flex-col items-center justify-center text-slate-500 overflow-hidden mb-3">
+                <i data-lucide="image" class="w-8 h-8 text-tech-blue/30 mb-0.5"></i>
+                <span class="text-[9px] font-mono text-slate-400 uppercase">Photo</span>
+              </div>
+              <div class="space-y-1">
+                <span class="text-[10px] font-mono text-slate-500 uppercase">3rd Year • CSE / AI</span>
+                <h4 class="text-base font-bold text-white">Karan Verma</h4>
+                <p class="text-xs text-tech-blue font-mono font-semibold">Head of AI & ML</p>
+                <p class="text-[11px] text-slate-400 leading-relaxed">Leads edge inferencing models, OpenCV vision, and TinyML pipelines.</p>
+                <div class="pt-2 border-t border-dark-border flex justify-between items-center text-slate-400">
+                  <span class="text-[10px] font-mono text-slate-500">Edge AI / Jetson</span>
+                  <div class="flex space-x-2">
+                    <a href="#" class="hover:text-tech-blue"><i data-lucide="linkedin" class="w-3 h-3"></i></a>
+                    <a href="#" class="hover:text-tech-blue"><i data-lucide="github" class="w-3 h-3"></i></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Head 5 -->
+          <div class="rgb-card">
+            <div class="rgb-card-inner p-4">
+              <div class="w-full aspect-square rounded-lg bg-dark-base border border-dark-border flex flex-col items-center justify-center text-slate-500 overflow-hidden mb-3">
+                <i data-lucide="image" class="w-8 h-8 text-tech-blue/30 mb-0.5"></i>
+                <span class="text-[9px] font-mono text-slate-400 uppercase">Photo</span>
+              </div>
+              <div class="space-y-1">
+                <span class="text-[10px] font-mono text-slate-500 uppercase">3rd Year • EEE</span>
+                <h4 class="text-base font-bold text-white">Priya Sen</h4>
+                <p class="text-xs text-tech-blue font-mono font-semibold">Head of Hardware Prototyping</p>
+                <p class="text-[11px] text-slate-400 leading-relaxed">Supervises PCB fabrication, SMD soldering benches, and signal integrity.</p>
+                <div class="pt-2 border-t border-dark-border flex justify-between items-center text-slate-400">
+                  <span class="text-[10px] font-mono text-slate-500">KiCad / Multi-Layer</span>
+                  <div class="flex space-x-2">
+                    <a href="#" class="hover:text-tech-blue"><i data-lucide="linkedin" class="w-3 h-3"></i></a>
+                    <a href="#" class="hover:text-tech-blue"><i data-lucide="github" class="w-3 h-3"></i></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Head 6 -->
+          <div class="rgb-card">
+            <div class="rgb-card-inner p-4">
+              <div class="w-full aspect-square rounded-lg bg-dark-base border border-dark-border flex flex-col items-center justify-center text-slate-500 overflow-hidden mb-3">
+                <i data-lucide="image" class="w-8 h-8 text-tech-blue/30 mb-0.5"></i>
+                <span class="text-[9px] font-mono text-slate-400 uppercase">Photo</span>
+              </div>
+              <div class="space-y-1">
+                <span class="text-[10px] font-mono text-slate-500 uppercase">3rd Year • ECE</span>
+                <h4 class="text-base font-bold text-white">Manish Gupta</h4>
+                <p class="text-xs text-tech-blue font-mono font-semibold">Head of Operations & Logistics</p>
+                <p class="text-[11px] text-slate-400 leading-relaxed">Coordinates lab component logistics, technical workshops, and venue planning.</p>
+                <div class="pt-2 border-t border-dark-border flex justify-between items-center text-slate-400">
+                  <span class="text-[10px] font-mono text-slate-500">Inventory & Outreach</span>
+                  <div class="flex space-x-2">
+                    <a href="#" class="hover:text-tech-blue"><i data-lucide="linkedin" class="w-3 h-3"></i></a>
+                    <a href="#" class="hover:text-tech-blue"><i data-lucide="github" class="w-3 h-3"></i></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- 3. DEPUTY HEADS: EXACTLY 6 CARDS -->
+      <div class="mb-12">
+        <h4 class="text-xs font-mono font-bold uppercase text-slate-400 tracking-wider mb-4 flex items-center gap-1.5">
+          <i data-lucide="git-commit" class="w-3.5 h-3.5 text-tech-blue"></i>
+          <span>Deputy Heads (6 Members)</span>
+        </h4>
+
+        <div class="grid md:grid-cols-2 gap-x-12 sm:gap-x-16 gap-y-8">
+          
+          <!-- Deputy 1 -->
+          <div class="rgb-card">
+            <div class="rgb-card-inner p-4">
+              <div class="w-full aspect-square rounded-lg bg-dark-base border border-dark-border flex flex-col items-center justify-center text-slate-500 overflow-hidden mb-3">
+                <i data-lucide="image" class="w-8 h-8 text-tech-blue/30 mb-0.5"></i>
+                <span class="text-[9px] font-mono text-slate-400 uppercase">Photo</span>
+              </div>
+              <div class="space-y-1">
+                <span class="text-[10px] font-mono text-slate-500 uppercase">3rd Year</span>
+                <h4 class="text-sm font-bold text-white">Devansh Kapoor</h4>
+                <p class="text-[11px] text-tech-blue font-mono font-semibold">Deputy Head • Embedded</p>
+                <div class="pt-1.5 border-t border-dark-border flex justify-between items-center text-slate-400">
+                  <span class="text-[9px] font-mono text-slate-500">Firmware Testing</span>
+                  <a href="#" class="hover:text-tech-blue"><i data-lucide="linkedin" class="w-3 h-3"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Deputy 2 -->
+          <div class="rgb-card">
+            <div class="rgb-card-inner p-4">
+              <div class="w-full aspect-square rounded-lg bg-dark-base border border-dark-border flex flex-col items-center justify-center text-slate-500 overflow-hidden mb-3">
+                <i data-lucide="image" class="w-8 h-8 text-tech-blue/30 mb-0.5"></i>
+                <span class="text-[9px] font-mono text-slate-400 uppercase">Photo</span>
+              </div>
+              <div class="space-y-1">
+                <span class="text-[10px] font-mono text-slate-500 uppercase">3rd Year</span>
+                <h4 class="text-sm font-bold text-white">Pooja Rao</h4>
+                <p class="text-[11px] text-tech-blue font-mono font-semibold">Deputy Head • Robotics</p>
+                <div class="pt-1.5 border-t border-dark-border flex justify-between items-center text-slate-400">
+                  <span class="text-[9px] font-mono text-slate-500">Chassis Dynamics</span>
+                  <a href="#" class="hover:text-tech-blue"><i data-lucide="linkedin" class="w-3 h-3"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Deputy 3 -->
+          <div class="rgb-card">
+            <div class="rgb-card-inner p-4">
+              <div class="w-full aspect-square rounded-lg bg-dark-base border border-dark-border flex flex-col items-center justify-center text-slate-500 overflow-hidden mb-3">
+                <i data-lucide="image" class="w-8 h-8 text-tech-blue/30 mb-0.5"></i>
+                <span class="text-[9px] font-mono text-slate-400 uppercase">Photo</span>
+              </div>
+              <div class="space-y-1">
+                <span class="text-[10px] font-mono text-slate-500 uppercase">3rd Year</span>
+                <h4 class="text-sm font-bold text-white">Siddharth Menon</h4>
+                <p class="text-[11px] text-tech-blue font-mono font-semibold">Deputy Head • VLSI</p>
+                <div class="pt-1.5 border-t border-dark-border flex justify-between items-center text-slate-400">
+                  <span class="text-[9px] font-mono text-slate-500">Testbenches & RTL</span>
+                  <a href="#" class="hover:text-tech-blue"><i data-lucide="linkedin" class="w-3 h-3"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Deputy 4 -->
+          <div class="rgb-card">
+            <div class="rgb-card-inner p-4">
+              <div class="w-full aspect-square rounded-lg bg-dark-base border border-dark-border flex flex-col items-center justify-center text-slate-500 overflow-hidden mb-3">
+                <i data-lucide="image" class="w-8 h-8 text-tech-blue/30 mb-0.5"></i>
+                <span class="text-[9px] font-mono text-slate-400 uppercase">Photo</span>
+              </div>
+              <div class="space-y-1">
+                <span class="text-[10px] font-mono text-slate-500 uppercase">3rd Year</span>
+                <h4 class="text-sm font-bold text-white">Kavya Varma</h4>
+                <p class="text-[11px] text-tech-blue font-mono font-semibold">Deputy Head • AI/ML</p>
+                <div class="pt-1.5 border-t border-dark-border flex justify-between items-center text-slate-400">
+                  <span class="text-[9px] font-mono text-slate-500">Dataset & Vision</span>
+                  <a href="#" class="hover:text-tech-blue"><i data-lucide="linkedin" class="w-3 h-3"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Deputy 5 -->
+          <div class="rgb-card">
+            <div class="rgb-card-inner p-4">
+              <div class="w-full aspect-square rounded-lg bg-dark-base border border-dark-border flex flex-col items-center justify-center text-slate-500 overflow-hidden mb-3">
+                <i data-lucide="image" class="w-8 h-8 text-tech-blue/30 mb-0.5"></i>
+                <span class="text-[9px] font-mono text-slate-400 uppercase">Photo</span>
+              </div>
+              <div class="space-y-1">
+                <span class="text-[10px] font-mono text-slate-500 uppercase">3rd Year</span>
+                <h4 class="text-sm font-bold text-white">Harsh Vardhan</h4>
+                <p class="text-[11px] text-tech-blue font-mono font-semibold">Deputy Head • Hardware Prototyping</p>
+                <div class="pt-1.5 border-t border-dark-border flex justify-between items-center text-slate-400">
+                  <span class="text-[9px] font-mono text-slate-500">Power Routing</span>
+                  <a href="#" class="hover:text-tech-blue"><i data-lucide="linkedin" class="w-3 h-3"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Deputy 6 -->
+          <div class="rgb-card">
+            <div class="rgb-card-inner p-4">
+              <div class="w-full aspect-square rounded-lg bg-dark-base border border-dark-border flex flex-col items-center justify-center text-slate-500 overflow-hidden mb-3">
+                <i data-lucide="image" class="w-8 h-8 text-tech-blue/30 mb-0.5"></i>
+                <span class="text-[9px] font-mono text-slate-400 uppercase">Photo</span>
+              </div>
+              <div class="space-y-1">
+                <span class="text-[10px] font-mono text-slate-500 uppercase">3rd Year</span>
+                <h4 class="text-sm font-bold text-white">Sanjana Nair</h4>
+                <p class="text-[11px] text-tech-blue font-mono font-semibold">Deputy Head • Operations</p>
+                <div class="pt-1.5 border-t border-dark-border flex justify-between items-center text-slate-400">
+                  <span class="text-[9px] font-mono text-slate-500">Logistics & PR</span>
+                  <a href="#" class="hover:text-tech-blue"><i data-lucide="linkedin" class="w-3 h-3"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- 4. SENIOR ASSOCIATES: EXACTLY 17 CARDS -->
+      <div>
+        <h4 class="text-xs font-mono font-bold uppercase text-slate-400 tracking-wider mb-4 flex items-center gap-1.5">
+          <i data-lucide="award" class="w-3.5 h-3.5 text-tech-blue"></i>
+          <span>Senior Associates (17 Members)</span>
+        </h4>
+
+        <div class="grid md:grid-cols-2 gap-x-12 sm:gap-x-16 gap-y-8">
+          
+          <!-- Sr 1 -->
+          <div class="rgb-card"><div class="rgb-card-inner p-4"><div class="w-full aspect-square rounded-lg bg-dark-base border border-dark-border flex flex-col items-center justify-center text-slate-500 overflow-hidden mb-3"><i data-lucide="image" class="w-7 h-7 text-tech-blue/30 mb-0.5"></i><span class="text-[8px] font-mono text-slate-400 uppercase">Photo</span></div><div class="space-y-0.5"><span class="text-[9px] font-mono text-slate-500">3rd Year</span><h5 class="text-sm font-bold text-white">Amit Kumar</h5><span class="text-[11px] text-tech-blue font-mono block">Senior Associate • Embedded</span><div class="pt-1.5 border-t border-dark-border flex justify-between items-center text-slate-400"><span class="text-[9px] font-mono text-slate-500">Firmware Node</span><div class="flex space-x-2"><a href="#" class="hover:text-tech-blue"><i data-lucide="github" class="w-3 h-3"></i></a><a href="#" class="hover:text-tech-blue"><i data-lucide="linkedin" class="w-3 h-3"></i></a></div></div></div></div></div>
+
+          <!-- Sr 2 -->
+          <div class="rgb-card"><div class="rgb-card-inner p-4"><div class="w-full aspect-square rounded-lg bg-dark-base border border-dark-border flex flex-col items-center justify-center text-slate-500 overflow-hidden mb-3"><i data-lucide="image" class="w-7 h-7 text-tech-blue/30 mb-0.5"></i><span class="text-[8px] font-mono text-slate-400 uppercase">Photo</span></div><div class="space-y-0.5"><span class="text-[9px] font-mono text-slate-500">3rd Year</span><h5 class="text-sm font-bold text-white">Tanvi Roy</h5><span class="text-[11px] text-tech-blue font-mono block">Senior Associate • Robotics</span><div class="pt-1.5 border-t border-dark-border flex justify-between items-center text-slate-400"><span class="text-[9px] font-mono text-slate-500">Kinematics</span><div class="flex space-x-2"><a href="#" class="hover:text-tech-blue"><i data-lucide="github" class="w-3 h-3"></i></a><a href="#" class="hover:text-tech-blue"><i data-lucide="linkedin" class="w-3 h-3"></i></a></div></div></div></div></div>
+
+          <!-- Sr 3 -->
+          <div class="rgb-card"><div class="rgb-card-inner p-4"><div class="w-full aspect-square rounded-lg bg-dark-base border border-dark-border flex flex-col items-center justify-center text-slate-500 overflow-hidden mb-3"><i data-lucide="image" class="w-7 h-7 text-tech-blue/30 mb-0.5"></i><span class="text-[8px] font-mono text-slate-400 uppercase">Photo</span></div><div class="space-y-0.5"><span class="text-[9px] font-mono text-slate-500">3rd Year</span><h5 class="text-sm font-bold text-white">Rahul Gupta</h5><span class="text-[11px] text-tech-blue font-mono block">Senior Associate • VLSI</span><div class="pt-1.5 border-t border-dark-border flex justify-between items-center text-slate-400"><span class="text-[9px] font-mono text-slate-500">RTL Logic</span><div class="flex space-x-2"><a href="#" class="hover:text-tech-blue"><i data-lucide="github" class="w-3 h-3"></i></a><a href="#" class="hover:text-tech-blue"><i data-lucide="linkedin" class="w-3 h-3"></i></a></div></div></div></div></div>
+
+          <!-- Sr 4 -->
+          <div class="rgb-card"><div class="rgb-card-inner p-4"><div class="w-full aspect-square rounded-lg bg-dark-base border border-dark-border flex flex-col items-center justify-center text-slate-500 overflow-hidden mb-3"><i data-lucide="image" class="w-7 h-7 text-tech-blue/30 mb-0.5"></i><span class="text-[8px] font-mono text-slate-400 uppercase">Photo</span></div><div class="space-y-0.5"><span class="text-[9px] font-mono text-slate-500">3rd Year</span><h5 class="text-sm font-bold text-white">Megha Nair</h5><span class="text-[11px] text-tech-blue font-mono block">Senior Associate • AI / ML</span><div class="pt-1.5 border-t border-dark-border flex justify-between items-center text-slate-400"><span class="text-[9px] font-mono text-slate-500">Vision Inference</span><div class="flex space-x-2"><a href="#" class="hover:text-tech-blue"><i data-lucide="github" class="w-3 h-3"></i></a><a href="#" class="hover:text-tech-blue"><i data-lucide="linkedin" class="w-3 h-3"></i></a></div></div></div></div></div>
+
+          <!-- Sr 5 -->
+          <div class="rgb-card"><div class="rgb-card-inner p-4"><div class="w-full aspect-square rounded-lg bg-dark-base border border-dark-border flex flex-col items-center justify-center text-slate-500 overflow-hidden mb-3"><i data-lucide="image" class="w-7 h-7 text-tech-blue/30 mb-0.5"></i><span class="text-[8px] font-mono text-slate-400 uppercase">Photo</span></div><div class="space-y-0.5"><span class="text-[9px] font-mono text-slate-500">3rd Year</span><h5 class="text-sm font-bold text-white">Aditya Chopra</h5><span class="text-[11px] text-tech-blue font-mono block">Senior Associate • Embedded</span><div class="pt-1.5 border-t border-dark-border flex justify-between items-center text-slate-400"><span class="text-[9px] font-mono text-slate-500">CAN Protocol</span><div class="flex space-x-2"><a href="#" class="hover:text-tech-blue"><i data-lucide="github" class="w-3 h-3"></i></a><a href="#" class="hover:text-tech-blue"><i data-lucide="linkedin" class="w-3 h-3"></i></a></div></div></div></div></div>
+
+          <!-- Sr 6 -->
+          <div class="rgb-card"><div class="rgb-card-inner p-4"><div class="w-full aspect-square rounded-lg bg-dark-base border border-dark-border flex flex-col items-center justify-center text-slate-500 overflow-hidden mb-3"><i data-lucide="image" class="w-7 h-7 text-tech-blue/30 mb-0.5"></i><span class="text-[8px] font-mono text-slate-400 uppercase">Photo</span></div><div class="space-y-0.5"><span class="text-[9px] font-mono text-slate-500">3rd Year</span><h5 class="text-sm font-bold text-white">Shreya Dutta</h5><span class="text-[11px] text-tech-blue font-mono block">Senior Associate • Robotics</span><div class="pt-1.5 border-t border-dark-border flex justify-between items-center text-slate-400"><span class="text-[9px] font-mono text-slate-500">Path Planning</span><div class="flex space-x-2"><a href="#" class="hover:text-tech-blue"><i data-lucide="github" class="w-3 h-3"></i></a><a href="#" class="hover:text-tech-blue"><i data-lucide="linkedin" class="w-3 h-3"></i></a></div></div></div></div></div>
+
+          <!-- Sr 7 -->
+          <div class="rgb-card"><div class="rgb-card-inner p-4"><div class="w-full aspect-square rounded-lg bg-dark-base border border-dark-border flex flex-col items-center justify-center text-slate-500 overflow-hidden mb-3"><i data-lucide="image" class="w-7 h-7 text-tech-blue/30 mb-0.5"></i><span class="text-[8px] font-mono text-slate-400 uppercase">Photo</span></div><div class="space-y-0.5"><span class="text-[9px] font-mono text-slate-500">3rd Year</span><h5 class="text-sm font-bold text-white">Karthik Reddy</h5><span class="text-[11px] text-tech-blue font-mono block">Senior Associate • VLSI</span><div class="pt-1.5 border-t border-dark-border flex justify-between items-center text-slate-400"><span class="text-[9px] font-mono text-slate-500">FPGA Routing</span><div class="flex space-x-2"><a href="#" class="hover:text-tech-blue"><i data-lucide="github" class="w-3 h-3"></i></a><a href="#" class="hover:text-tech-blue"><i data-lucide="linkedin" class="w-3 h-3"></i></a></div></div></div></div></div>
+
+          <!-- Sr 8 -->
+          <div class="rgb-card"><div class="rgb-card-inner p-4"><div class="w-full aspect-square rounded-lg bg-dark-base border border-dark-border flex flex-col items-center justify-center text-slate-500 overflow-hidden mb-3"><i data-lucide="image" class="w-7 h-7 text-tech-blue/30 mb-0.5"></i><span class="text-[8px] font-mono text-slate-400 uppercase">Photo</span></div><div class="space-y-0.5"><span class="text-[9px] font-mono text-slate-500">3rd Year</span><h5 class="text-sm font-bold text-white">Nikhil Joshi</h5><span class="text-[11px] text-tech-blue font-mono block">Senior Associate • AI / ML</span><div class="pt-1.5 border-t border-dark-border flex justify-between items-center text-slate-400"><span class="text-[9px] font-mono text-slate-500">TinyML Models</span><div class="flex space-x-2"><a href="#" class="hover:text-tech-blue"><i data-lucide="github" class="w-3 h-3"></i></a><a href="#" class="hover:text-tech-blue"><i data-lucide="linkedin" class="w-3 h-3"></i></a></div></div></div></div></div>
+
+          <!-- Sr 9 -->
+          <div class="rgb-card"><div class="rgb-card-inner p-4"><div class="w-full aspect-square rounded-lg bg-dark-base border border-dark-border flex flex-col items-center justify-center text-slate-500 overflow-hidden mb-3"><i data-lucide="image" class="w-7 h-7 text-tech-blue/30 mb-0.5"></i><span class="text-[8px] font-mono text-slate-400 uppercase">Photo</span></div><div class="space-y-0.5"><span class="text-[9px] font-mono text-slate-500">3rd Year</span><h5 class="text-sm font-bold text-white">Rhea Ghosh</h5><span class="text-[11px] text-tech-blue font-mono block">Senior Associate • Hardware PCB</span><div class="pt-1.5 border-t border-dark-border flex justify-between items-center text-slate-400"><span class="text-[9px] font-mono text-slate-500">Schematics</span><div class="flex space-x-2"><a href="#" class="hover:text-tech-blue"><i data-lucide="github" class="w-3 h-3"></i></a><a href="#" class="hover:text-tech-blue"><i data-lucide="linkedin" class="w-3 h-3"></i></a></div></div></div></div></div>
+
+          <!-- Sr 10 -->
+          <div class="rgb-card"><div class="rgb-card-inner p-4"><div class="w-full aspect-square rounded-lg bg-dark-base border border-dark-border flex flex-col items-center justify-center text-slate-500 overflow-hidden mb-3"><i data-lucide="image" class="w-7 h-7 text-tech-blue/30 mb-0.5"></i><span class="text-[8px] font-mono text-slate-400 uppercase">Photo</span></div><div class="space-y-0.5"><span class="text-[9px] font-mono text-slate-500">3rd Year</span><h5 class="text-sm font-bold text-white">Abhishek Pillai</h5><span class="text-[11px] text-tech-blue font-mono block">Senior Associate • Embedded</span><div class="pt-1.5 border-t border-dark-border flex justify-between items-center text-slate-400"><span class="text-[9px] font-mono text-slate-500">ESP32 Firmware</span><div class="flex space-x-2"><a href="#" class="hover:text-tech-blue"><i data-lucide="github" class="w-3 h-3"></i></a><a href="#" class="hover:text-tech-blue"><i data-lucide="linkedin" class="w-3 h-3"></i></a></div></div></div></div></div>
+
+          <!-- Sr 11 -->
+          <div class="rgb-card"><div class="rgb-card-inner p-4"><div class="w-full aspect-square rounded-lg bg-dark-base border border-dark-border flex flex-col items-center justify-center text-slate-500 overflow-hidden mb-3"><i data-lucide="image" class="w-7 h-7 text-tech-blue/30 mb-0.5"></i><span class="text-[8px] font-mono text-slate-400 uppercase">Photo</span></div><div class="space-y-0.5"><span class="text-[9px] font-mono text-slate-500">3rd Year</span><h5 class="text-sm font-bold text-white">Ananya Deshmukh</h5><span class="text-[11px] text-tech-blue font-mono block">Senior Associate • Robotics</span><div class="pt-1.5 border-t border-dark-border flex justify-between items-center text-slate-400"><span class="text-[9px] font-mono text-slate-500">SLAM Mapping</span><div class="flex space-x-2"><a href="#" class="hover:text-tech-blue"><i data-lucide="github" class="w-3 h-3"></i></a><a href="#" class="hover:text-tech-blue"><i data-lucide="linkedin" class="w-3 h-3"></i></a></div></div></div></div></div>
+
+          <!-- Sr 12 -->
+          <div class="rgb-card"><div class="rgb-card-inner p-4"><div class="w-full aspect-square rounded-lg bg-dark-base border border-dark-border flex flex-col items-center justify-center text-slate-500 overflow-hidden mb-3"><i data-lucide="image" class="w-7 h-7 text-tech-blue/30 mb-0.5"></i><span class="text-[8px] font-mono text-slate-400 uppercase">Photo</span></div><div class="space-y-0.5"><span class="text-[9px] font-mono text-slate-500">3rd Year</span><h5 class="text-sm font-bold text-white">Deepak Soni</h5><span class="text-[11px] text-tech-blue font-mono block">Senior Associate • VLSI</span><div class="pt-1.5 border-t border-dark-border flex justify-between items-center text-slate-400"><span class="text-[9px] font-mono text-slate-500">Verilog RTL</span><div class="flex space-x-2"><a href="#" class="hover:text-tech-blue"><i data-lucide="github" class="w-3 h-3"></i></a><a href="#" class="hover:text-tech-blue"><i data-lucide="linkedin" class="w-3 h-3"></i></a></div></div></div></div></div>
+
+          <!-- Sr 13 -->
+          <div class="rgb-card"><div class="rgb-card-inner p-4"><div class="w-full aspect-square rounded-lg bg-dark-base border border-dark-border flex flex-col items-center justify-center text-slate-500 overflow-hidden mb-3"><i data-lucide="image" class="w-7 h-7 text-tech-blue/30 mb-0.5"></i><span class="text-[8px] font-mono text-slate-400 uppercase">Photo</span></div><div class="space-y-0.5"><span class="text-[9px] font-mono text-slate-500">3rd Year</span><h5 class="text-sm font-bold text-white">Varun Mehta</h5><span class="text-[11px] text-tech-blue font-mono block">Senior Associate • AI / ML</span><div class="pt-1.5 border-t border-dark-border flex justify-between items-center text-slate-400"><span class="text-[9px] font-mono text-slate-500">YOLO Models</span><div class="flex space-x-2"><a href="#" class="hover:text-tech-blue"><i data-lucide="github" class="w-3 h-3"></i></a><a href="#" class="hover:text-tech-blue"><i data-lucide="linkedin" class="w-3 h-3"></i></a></div></div></div></div></div>
+
+          <!-- Sr 14 -->
+          <div class="rgb-card"><div class="rgb-card-inner p-4"><div class="w-full aspect-square rounded-lg bg-dark-base border border-dark-border flex flex-col items-center justify-center text-slate-500 overflow-hidden mb-3"><i data-lucide="image" class="w-7 h-7 text-tech-blue/30 mb-0.5"></i><span class="text-[8px] font-mono text-slate-400 uppercase">Photo</span></div><div class="space-y-0.5"><span class="text-[9px] font-mono text-slate-500">3rd Year</span><h5 class="text-sm font-bold text-white">Sneha Kulkarni</h5><span class="text-[11px] text-tech-blue font-mono block">Senior Associate • Hardware PCB</span><div class="pt-1.5 border-t border-dark-border flex justify-between items-center text-slate-400"><span class="text-[9px] font-mono text-slate-500">Trace Routing</span><div class="flex space-x-2"><a href="#" class="hover:text-tech-blue"><i data-lucide="github" class="w-3 h-3"></i></a><a href="#" class="hover:text-tech-blue"><i data-lucide="linkedin" class="w-3 h-3"></i></a></div></div></div></div></div>
+
+          <!-- Sr 15 -->
+          <div class="rgb-card"><div class="rgb-card-inner p-4"><div class="w-full aspect-square rounded-lg bg-dark-base border border-dark-border flex flex-col items-center justify-center text-slate-500 overflow-hidden mb-3"><i data-lucide="image" class="w-7 h-7 text-tech-blue/30 mb-0.5"></i><span class="text-[8px] font-mono text-slate-400 uppercase">Photo</span></div><div class="space-y-0.5"><span class="text-[9px] font-mono text-slate-500">3rd Year</span><h5 class="text-sm font-bold text-white">Gaurav Bansal</h5><span class="text-[11px] text-tech-blue font-mono block">Senior Associate • Embedded</span><div class="pt-1.5 border-t border-dark-border flex justify-between items-center text-slate-400"><span class="text-[9px] font-mono text-slate-500">FreeRTOS Tasks</span><div class="flex space-x-2"><a href="#" class="hover:text-tech-blue"><i data-lucide="github" class="w-3 h-3"></i></a><a href="#" class="hover:text-tech-blue"><i data-lucide="linkedin" class="w-3 h-3"></i></a></div></div></div></div></div>
+
+          <!-- Sr 16 -->
+          <div class="rgb-card"><div class="rgb-card-inner p-4"><div class="w-full aspect-square rounded-lg bg-dark-base border border-dark-border flex flex-col items-center justify-center text-slate-500 overflow-hidden mb-3"><i data-lucide="image" class="w-7 h-7 text-tech-blue/30 mb-0.5"></i><span class="text-[8px] font-mono text-slate-400 uppercase">Photo</span></div><div class="space-y-0.5"><span class="text-[9px] font-mono text-slate-500">3rd Year</span><h5 class="text-sm font-bold text-white">Divya Prakash</h5><span class="text-[11px] text-tech-blue font-mono block">Senior Associate • Robotics</span><div class="pt-1.5 border-t border-dark-border flex justify-between items-center text-slate-400"><span class="text-[9px] font-mono text-slate-500">Gazebo Sim</span><div class="flex space-x-2"><a href="#" class="hover:text-tech-blue"><i data-lucide="github" class="w-3 h-3"></i></a><a href="#" class="hover:text-tech-blue"><i data-lucide="linkedin" class="w-3 h-3"></i></a></div></div></div></div></div>
+
+          <!-- Sr 17 -->
+          <div class="rgb-card"><div class="rgb-card-inner p-4"><div class="w-full aspect-square rounded-lg bg-dark-base border border-dark-border flex flex-col items-center justify-center text-slate-500 overflow-hidden mb-3"><i data-lucide="image" class="w-7 h-7 text-tech-blue/30 mb-0.5"></i><span class="text-[8px] font-mono text-slate-400 uppercase">Photo</span></div><div class="space-y-0.5"><span class="text-[9px] font-mono text-slate-500">3rd Year</span><h5 class="text-sm font-bold text-white">Tanya Bharadwaj</h5><span class="text-[11px] text-tech-blue font-mono block">Senior Associate • Operations</span><div class="pt-1.5 border-t border-dark-border flex justify-between items-center text-slate-400"><span class="text-[9px] font-mono text-slate-500">Club Records</span><div class="flex space-x-2"><a href="#" class="hover:text-tech-blue"><i data-lucide="github" class="w-3 h-3"></i></a><a href="#" class="hover:text-tech-blue"><i data-lucide="linkedin" class="w-3 h-3"></i></a></div></div></div></div></div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- SECTION 2: JUNIOR TEAM: 2ND YEAR                             -->
+    <!-- ============================================================ -->
+    <section>
+      <div class="mb-8 pb-3 border-b border-dark-border">
+        <div class="inline-flex items-center space-x-2 text-tech-blue text-[11px] font-mono font-bold uppercase tracking-wider mb-1">
+          <span class="w-2 h-2 rounded-full bg-tech-blue animate-pulse"></span>
+          <span>Junior Division</span>
+        </div>
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">JUNIOR TEAM: 2ND YEAR</h2>
+      </div>
+
+      <!-- JUNIOR ASSOCIATES: EXACTLY 18 CARDS -->
+      <div>
+        <h4 class="text-xs font-mono font-bold uppercase text-slate-400 tracking-wider mb-4 flex items-center gap-1.5">
+          <i data-lucide="terminal" class="w-3.5 h-3.5 text-tech-blue"></i>
+          <span>Junior Associates (18 Members)</span>
+        </h4>
+
+        <div class="grid md:grid-cols-2 gap-x-12 sm:gap-x-16 gap-y-8">
+          
+          <!-- Jr 1 -->
+          <div class="rgb-card"><div class="rgb-card-inner p-4"><div class="w-full aspect-square rounded-lg bg-dark-base border border-dark-border flex flex-col items-center justify-center text-slate-500 overflow-hidden mb-3"><i data-lucide="image" class="w-7 h-7 text-tech-blue/30 mb-0.5"></i><span class="text-[8px] font-mono text-slate-400 uppercase">Photo</span></div><div class="space-y-0.5"><span class="text-[9px] font-mono text-slate-500">2nd Year</span><h5 class="text-sm font-bold text-white">Sameer Khan</h5><span class="text-[11px] text-tech-blue font-mono block">Junior Associate • Embedded Hardware</span><div class="pt-1.5 border-t border-dark-border flex justify-between items-center text-slate-400"><span class="text-[9px] font-mono text-slate-500">PCB Solder & Test</span><div class="flex space-x-2"><a href="#" class="hover:text-tech-blue"><i data-lucide="github" class="w-3 h-3"></i></a><a href="#" class="hover:text-tech-blue"><i data-lucide="linkedin" class="w-3 h-3"></i></a></div></div></div></div></div>
+
+          <!-- Jr 2 -->
+          <div class="rgb-card"><div class="rgb-card-inner p-4"><div class="w-full aspect-square rounded-lg bg-dark-base border border-dark-border flex flex-col items-center justify-center text-slate-500 overflow-hidden mb-3"><i data-lucide="image" class="w-7 h-7 text-tech-blue/30 mb-0.5"></i><span class="text-[8px] font-mono text-slate-400 uppercase">Photo</span></div><div class="space-y-0.5"><span class="text-[9px] font-mono text-slate-500">2nd Year</span><h5 class="text-sm font-bold text-white">Ishita Bose</h5><span class="text-[11px] text-tech-blue font-mono block">Junior Associate • Robotics & ROS</span><div class="pt-1.5 border-t border-dark-border flex justify-between items-center text-slate-400"><span class="text-[9px] font-mono text-slate-500">Bot Assembly</span><div class="flex space-x-2"><a href="#" class="hover:text-tech-blue"><i data-lucide="github" class="w-3 h-3"></i></a><a href="#" class="hover:text-tech-blue"><i data-lucide="linkedin" class="w-3 h-3"></i></a></div></div></div></div></div>
+
+          <!-- Jr 3 -->
+          <div class="rgb-card"><div class="rgb-card-inner p-4"><div class="w-full aspect-square rounded-lg bg-dark-base border border-dark-border flex flex-col items-center justify-center text-slate-500 overflow-hidden mb-3"><i data-lucide="image" class="w-7 h-7 text-tech-blue/30 mb-0.5"></i><span class="text-[8px] font-mono text-slate-400 uppercase">Photo</span></div><div class="space-y-0.5"><span class="text-[9px] font-mono text-slate-500">2nd Year</span><h5 class="text-sm font-bold text-white">Aditya Das</h5><span class="text-[11px] text-tech-blue font-mono block">Junior Associate • Digital VLSI</span><div class="pt-1.5 border-t border-dark-border flex justify-between items-center text-slate-400"><span class="text-[9px] font-mono text-slate-500">Verilog Syntax</span><div class="flex space-x-2"><a href="#" class="hover:text-tech-blue"><i data-lucide="github" class="w-3 h-3"></i></a><a href="#" class="hover:text-tech-blue"><i data-lucide="linkedin" class="w-3 h-3"></i></a></div></div></div></div></div>
+
+          <!-- Jr 4 -->
+          <div class="rgb-card"><div class="rgb-card-inner p-4"><div class="w-full aspect-square rounded-lg bg-dark-base border border-dark-border flex flex-col items-center justify-center text-slate-500 overflow-hidden mb-3"><i data-lucide="image" class="w-7 h-7 text-tech-blue/30 mb-0.5"></i><span class="text-[8px] font-mono text-slate-400 uppercase">Photo</span></div><div class="space-y-0.5"><span class="text-[9px] font-mono text-slate-500">2nd Year</span><h5 class="text-sm font-bold text-white">Rhea Nambiar</h5><span class="text-[11px] text-tech-blue font-mono block">Junior Associate • Applied AI</span><div class="pt-1.5 border-t border-dark-border flex justify-between items-center text-slate-400"><span class="text-[9px] font-mono text-slate-500">Python & OpenCV</span><div class="flex space-x-2"><a href="#" class="hover:text-tech-blue"><i data-lucide="github" class="w-3 h-3"></i></a><a href="#" class="hover:text-tech-blue"><i data-lucide="linkedin" class="w-3 h-3"></i></a></div></div></div></div></div>
+
+          <!-- Jr 5 -->
+          <div class="rgb-card"><div class="rgb-card-inner p-4"><div class="w-full aspect-square rounded-lg bg-dark-base border border-dark-border flex flex-col items-center justify-center text-slate-500 overflow-hidden mb-3"><i data-lucide="image" class="w-7 h-7 text-tech-blue/30 mb-0.5"></i><span class="text-[8px] font-mono text-slate-400 uppercase">Photo</span></div><div class="space-y-0.5"><span class="text-[9px] font-mono text-slate-500">2nd Year</span><h5 class="text-sm font-bold text-white">Rohit Malviya</h5><span class="text-[11px] text-tech-blue font-mono block">Junior Associate • Embedded</span><div class="pt-1.5 border-t border-dark-border flex justify-between items-center text-slate-400"><span class="text-[9px] font-mono text-slate-500">Sensors & GPIO</span><div class="flex space-x-2"><a href="#" class="hover:text-tech-blue"><i data-lucide="github" class="w-3 h-3"></i></a><a href="#" class="hover:text-tech-blue"><i data-lucide="linkedin" class="w-3 h-3"></i></a></div></div></div></div></div>
+
+          <!-- Jr 6 -->
+          <div class="rgb-card"><div class="rgb-card-inner p-4"><div class="w-full aspect-square rounded-lg bg-dark-base border border-dark-border flex flex-col items-center justify-center text-slate-500 overflow-hidden mb-3"><i data-lucide="image" class="w-7 h-7 text-tech-blue/30 mb-0.5"></i><span class="text-[8px] font-mono text-slate-400 uppercase">Photo</span></div><div class="space-y-0.5"><span class="text-[9px] font-mono text-slate-500">2nd Year</span><h5 class="text-sm font-bold text-white">Ananya Tandon</h5><span class="text-[11px] text-tech-blue font-mono block">Junior Associate • Robotics</span><div class="pt-1.5 border-t border-dark-border flex justify-between items-center text-slate-400"><span class="text-[9px] font-mono text-slate-500">Motor Drivers</span><div class="flex space-x-2"><a href="#" class="hover:text-tech-blue"><i data-lucide="github" class="w-3 h-3"></i></a><a href="#" class="hover:text-tech-blue"><i data-lucide="linkedin" class="w-3 h-3"></i></a></div></div></div></div></div>
+
+          <!-- Jr 7 -->
+          <div class="rgb-card"><div class="rgb-card-inner p-4"><div class="w-full aspect-square rounded-lg bg-dark-base border border-dark-border flex flex-col items-center justify-center text-slate-500 overflow-hidden mb-3"><i data-lucide="image" class="w-7 h-7 text-tech-blue/30 mb-0.5"></i><span class="text-[8px] font-mono text-slate-400 uppercase">Photo</span></div><div class="space-y-0.5"><span class="text-[9px] font-mono text-slate-500">2nd Year</span><h5 class="text-sm font-bold text-white">Chirag Singhal</h5><span class="text-[11px] text-tech-blue font-mono block">Junior Associate • VLSI</span><div class="pt-1.5 border-t border-dark-border flex justify-between items-center text-slate-400"><span class="text-[9px] font-mono text-slate-500">Combinational RTL</span><div class="flex space-x-2"><a href="#" class="hover:text-tech-blue"><i data-lucide="github" class="w-3 h-3"></i></a><a href="#" class="hover:text-tech-blue"><i data-lucide="linkedin" class="w-3 h-3"></i></a></div></div></div></div></div>
+
+          <!-- Jr 8 -->
+          <div class="rgb-card"><div class="rgb-card-inner p-4"><div class="w-full aspect-square rounded-lg bg-dark-base border border-dark-border flex flex-col items-center justify-center text-slate-500 overflow-hidden mb-3"><i data-lucide="image" class="w-7 h-7 text-tech-blue/30 mb-0.5"></i><span class="text-[8px] font-mono text-slate-400 uppercase">Photo</span></div><div class="space-y-0.5"><span class="text-[9px] font-mono text-slate-500">2nd Year</span><h5 class="text-sm font-bold text-white">Natasha Jain</h5><span class="text-[11px] text-tech-blue font-mono block">Junior Associate • AI / ML</span><div class="pt-1.5 border-t border-dark-border flex justify-between items-center text-slate-400"><span class="text-[9px] font-mono text-slate-500">Data Annotation</span><div class="flex space-x-2"><a href="#" class="hover:text-tech-blue"><i data-lucide="github" class="w-3 h-3"></i></a><a href="#" class="hover:text-tech-blue"><i data-lucide="linkedin" class="w-3 h-3"></i></a></div></div></div></div></div>
+
+          <!-- Jr 9 -->
+          <div class="rgb-card"><div class="rgb-card-inner p-4"><div class="w-full aspect-square rounded-lg bg-dark-base border border-dark-border flex flex-col items-center justify-center text-slate-500 overflow-hidden mb-3"><i data-lucide="image" class="w-7 h-7 text-tech-blue/30 mb-0.5"></i><span class="text-[8px] font-mono text-slate-400 uppercase">Photo</span></div><div class="space-y-0.5"><span class="text-[9px] font-mono text-slate-500">2nd Year</span><h5 class="text-sm font-bold text-white">Yashwant R.</h5><span class="text-[11px] text-tech-blue font-mono block">Junior Associate • Hardware PCB</span><div class="pt-1.5 border-t border-dark-border flex justify-between items-center text-slate-400"><span class="text-[9px] font-mono text-slate-500">Footprints</span><div class="flex space-x-2"><a href="#" class="hover:text-tech-blue"><i data-lucide="github" class="w-3 h-3"></i></a><a href="#" class="hover:text-tech-blue"><i data-lucide="linkedin" class="w-3 h-3"></i></a></div></div></div></div></div>
+
+          <!-- Jr 10 -->
+          <div class="rgb-card"><div class="rgb-card-inner p-4"><div class="w-full aspect-square rounded-lg bg-dark-base border border-dark-border flex flex-col items-center justify-center text-slate-500 overflow-hidden mb-3"><i data-lucide="image" class="w-7 h-7 text-tech-blue/30 mb-0.5"></i><span class="text-[8px] font-mono text-slate-400 uppercase">Photo</span></div><div class="space-y-0.5"><span class="text-[9px] font-mono text-slate-500">2nd Year</span><h5 class="text-sm font-bold text-white">Komal Yadav</h5><span class="text-[11px] text-tech-blue font-mono block">Junior Associate • Embedded</span><div class="pt-1.5 border-t border-dark-border flex justify-between items-center text-slate-400"><span class="text-[9px] font-mono text-slate-500">UART Nodes</span><div class="flex space-x-2"><a href="#" class="hover:text-tech-blue"><i data-lucide="github" class="w-3 h-3"></i></a><a href="#" class="hover:text-tech-blue"><i data-lucide="linkedin" class="w-3 h-3"></i></a></div></div></div></div></div>
+
+          <!-- Jr 11 -->
+          <div class="rgb-card"><div class="rgb-card-inner p-4"><div class="w-full aspect-square rounded-lg bg-dark-base border border-dark-border flex flex-col items-center justify-center text-slate-500 overflow-hidden mb-3"><i data-lucide="image" class="w-7 h-7 text-tech-blue/30 mb-0.5"></i><span class="text-[8px] font-mono text-slate-400 uppercase">Photo</span></div><div class="space-y-0.5"><span class="text-[9px] font-mono text-slate-500">2nd Year</span><h5 class="text-sm font-bold text-white">Suresh Nair</h5><span class="text-[11px] text-tech-blue font-mono block">Junior Associate • Robotics</span><div class="pt-1.5 border-t border-dark-border flex justify-between items-center text-slate-400"><span class="text-[9px] font-mono text-slate-500">PID Arrays</span><div class="flex space-x-2"><a href="#" class="hover:text-tech-blue"><i data-lucide="github" class="w-3 h-3"></i></a><a href="#" class="hover:text-tech-blue"><i data-lucide="linkedin" class="w-3 h-3"></i></a></div></div></div></div></div>
+
+          <!-- Jr 12 -->
+          <div class="rgb-card"><div class="rgb-card-inner p-4"><div class="w-full aspect-square rounded-lg bg-dark-base border border-dark-border flex flex-col items-center justify-center text-slate-500 overflow-hidden mb-3"><i data-lucide="image" class="w-7 h-7 text-tech-blue/30 mb-0.5"></i><span class="text-[8px] font-mono text-slate-400 uppercase">Photo</span></div><div class="space-y-0.5"><span class="text-[9px] font-mono text-slate-500">2nd Year</span><h5 class="text-sm font-bold text-white">Pranav Tiwari</h5><span class="text-[11px] text-tech-blue font-mono block">Junior Associate • VLSI</span><div class="pt-1.5 border-t border-dark-border flex justify-between items-center text-slate-400"><span class="text-[9px] font-mono text-slate-500">Simulation</span><div class="flex space-x-2"><a href="#" class="hover:text-tech-blue"><i data-lucide="github" class="w-3 h-3"></i></a><a href="#" class="hover:text-tech-blue"><i data-lucide="linkedin" class="w-3 h-3"></i></a></div></div></div></div></div>
+
+          <!-- Jr 13 -->
+          <div class="rgb-card"><div class="rgb-card-inner p-4"><div class="w-full aspect-square rounded-lg bg-dark-base border border-dark-border flex flex-col items-center justify-center text-slate-500 overflow-hidden mb-3"><i data-lucide="image" class="w-7 h-7 text-tech-blue/30 mb-0.5"></i><span class="text-[8px] font-mono text-slate-400 uppercase">Photo</span></div><div class="space-y-0.5"><span class="text-[9px] font-mono text-slate-500">2nd Year</span><h5 class="text-sm font-bold text-white">Isha Sen</h5><span class="text-[11px] text-tech-blue font-mono block">Junior Associate • AI / ML</span><div class="pt-1.5 border-t border-dark-border flex justify-between items-center text-slate-400"><span class="text-[9px] font-mono text-slate-500">Edge Inference</span><div class="flex space-x-2"><a href="#" class="hover:text-tech-blue"><i data-lucide="github" class="w-3 h-3"></i></a><a href="#" class="hover:text-tech-blue"><i data-lucide="linkedin" class="w-3 h-3"></i></a></div></div></div></div></div>
+
+          <!-- Jr 14 -->
+          <div class="rgb-card"><div class="rgb-card-inner p-4"><div class="w-full aspect-square rounded-lg bg-dark-base border border-dark-border flex flex-col items-center justify-center text-slate-500 overflow-hidden mb-3"><i data-lucide="image" class="w-7 h-7 text-tech-blue/30 mb-0.5"></i><span class="text-[8px] font-mono text-slate-400 uppercase">Photo</span></div><div class="space-y-0.5"><span class="text-[9px] font-mono text-slate-500">2nd Year</span><h5 class="text-sm font-bold text-white">Tarun Bhatt</h5><span class="text-[11px] text-tech-blue font-mono block">Junior Associate • Hardware PCB</span><div class="pt-1.5 border-t border-dark-border flex justify-between items-center text-slate-400"><span class="text-[9px] font-mono text-slate-500">Gerber Review</span><div class="flex space-x-2"><a href="#" class="hover:text-tech-blue"><i data-lucide="github" class="w-3 h-3"></i></a><a href="#" class="hover:text-tech-blue"><i data-lucide="linkedin" class="w-3 h-3"></i></a></div></div></div></div></div>
+
+          <!-- Jr 15 -->
+          <div class="rgb-card"><div class="rgb-card-inner p-4"><div class="w-full aspect-square rounded-lg bg-dark-base border border-dark-border flex flex-col items-center justify-center text-slate-500 overflow-hidden mb-3"><i data-lucide="image" class="w-7 h-7 text-tech-blue/30 mb-0.5"></i><span class="text-[8px] font-mono text-slate-400 uppercase">Photo</span></div><div class="space-y-0.5"><span class="text-[9px] font-mono text-slate-500">2nd Year</span><h5 class="text-sm font-bold text-white">Meera Srinivasan</h5><span class="text-[11px] text-tech-blue font-mono block">Junior Associate • Embedded</span><div class="pt-1.5 border-t border-dark-border flex justify-between items-center text-slate-400"><span class="text-[9px] font-mono text-slate-500">I2C Drivers</span><div class="flex space-x-2"><a href="#" class="hover:text-tech-blue"><i data-lucide="github" class="w-3 h-3"></i></a><a href="#" class="hover:text-tech-blue"><i data-lucide="linkedin" class="w-3 h-3"></i></a></div></div></div></div></div>
+
+          <!-- Jr 16 -->
+          <div class="rgb-card"><div class="rgb-card-inner p-4"><div class="w-full aspect-square rounded-lg bg-dark-base border border-dark-border flex flex-col items-center justify-center text-slate-500 overflow-hidden mb-3"><i data-lucide="image" class="w-7 h-7 text-tech-blue/30 mb-0.5"></i><span class="text-[8px] font-mono text-slate-400 uppercase">Photo</span></div><div class="space-y-0.5"><span class="text-[9px] font-mono text-slate-500">2nd Year</span><h5 class="text-sm font-bold text-white">Akash Hegde</h5><span class="text-[11px] text-tech-blue font-mono block">Junior Associate • Robotics</span><div class="pt-1.5 border-t border-dark-border flex justify-between items-center text-slate-400"><span class="text-[9px] font-mono text-slate-500">Chassis Print</span><div class="flex space-x-2"><a href="#" class="hover:text-tech-blue"><i data-lucide="github" class="w-3 h-3"></i></a><a href="#" class="hover:text-tech-blue"><i data-lucide="linkedin" class="w-3 h-3"></i></a></div></div></div></div></div>
+
+          <!-- Jr 17 -->
+          <div class="rgb-card"><div class="rgb-card-inner p-4"><div class="w-full aspect-square rounded-lg bg-dark-base border border-dark-border flex flex-col items-center justify-center text-slate-500 overflow-hidden mb-3"><i data-lucide="image" class="w-7 h-7 text-tech-blue/30 mb-0.5"></i><span class="text-[8px] font-mono text-slate-400 uppercase">Photo</span></div><div class="space-y-0.5"><span class="text-[9px] font-mono text-slate-500">2nd Year</span><h5 class="text-sm font-bold text-white">Bhavna Mathur</h5><span class="text-[11px] text-tech-blue font-mono block">Junior Associate • Operations</span><div class="pt-1.5 border-t border-dark-border flex justify-between items-center text-slate-400"><span class="text-[9px] font-mono text-slate-500">Event PR</span><div class="flex space-x-2"><a href="#" class="hover:text-tech-blue"><i data-lucide="github" class="w-3 h-3"></i></a><a href="#" class="hover:text-tech-blue"><i data-lucide="linkedin" class="w-3 h-3"></i></a></div></div></div></div></div>
+
+          <!-- Jr 18 -->
+          <div class="rgb-card"><div class="rgb-card-inner p-4"><div class="w-full aspect-square rounded-lg bg-dark-base border border-dark-border flex flex-col items-center justify-center text-slate-500 overflow-hidden mb-3"><i data-lucide="image" class="w-7 h-7 text-tech-blue/30 mb-0.5"></i><span class="text-[8px] font-mono text-slate-400 uppercase">Photo</span></div><div class="space-y-0.5"><span class="text-[9px] font-mono text-slate-500">2nd Year</span><h5 class="text-sm font-bold text-white">Naveen Choudhary</h5><span class="text-[11px] text-tech-blue font-mono block">Junior Associate • Technical Media</span><div class="pt-1.5 border-t border-dark-border flex justify-between items-center text-slate-400"><span class="text-[9px] font-mono text-slate-500">Graphics & Web</span><div class="flex space-x-2"><a href="#" class="hover:text-tech-blue"><i data-lucide="github" class="w-3 h-3"></i></a><a href="#" class="hover:text-tech-blue"><i data-lucide="linkedin" class="w-3 h-3"></i></a></div></div></div></div></div>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="border-t border-dark-border py-8 bg-dark-base text-xs text-slate-500">
+    <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <p>© 2025 SPECTRUM CLUB. Hosted via GitHub Pages.</p>
+      <div class="flex items-center space-x-6 text-slate-400">
+        <a href="index.html" class="hover:text-tech-blue transition">Home</a>
+        <a href="events_n_updates.html" class="hover:text-tech-blue transition">Events & Updates</a>
+        <a href="team.html" class="hover:text-tech-blue transition">Team</a>
+        <a href="index.html#contact" class="hover:text-tech-blue transition">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Lucide Script -->
+  <script>
+    lucide.createIcons();
+  </script>
+</body>
+</html>
