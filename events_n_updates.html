@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Events & Updates | Electronics & Robotics Club</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            dark: {
+              base: '#080c14',
+              card: '#0f172a',
+              cardHover: '#152033',
+              border: '#1e293b',
+            },
+            tech: {
+              blue: '#38bdf8',      /* Light Blue Accent */
+              blueHover: '#0ea5e9',
+              blueMuted: 'rgba(56, 189, 248, 0.1)',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Animations: Ambient Hero Lights & Clockwise Rotating RGB Border Beam -->
+  <style>
+    /* Hero Lights Animations */
+    @keyframes driftOne {
+      0% { transform: translate(-20%, -20%) scale(1); opacity: 0.25; }
+      33% { transform: translate(30%, 20%) scale(1.3); opacity: 0.45; }
+      66% { transform: translate(-10%, 40%) scale(0.9); opacity: 0.2; }
+      100% { transform: translate(-20%, -20%) scale(1); opacity: 0.25; }
+    }
+    @keyframes driftTwo {
+      0% { transform: translate(30%, 30%) scale(0.9); opacity: 0.2; }
+      40% { transform: translate(-25%, -15%) scale(1.25); opacity: 0.45; }
+      75% { transform: translate(15%, -30%) scale(1.1); opacity: 0.3; }
+      100% { transform: translate(30%, 30%) scale(0.9); opacity: 0.2; }
+    }
+    @keyframes driftThree {
+      0% { transform: translate(10%, -30%) scale(1.1); opacity: 0.3; }
+      50% { transform: translate(-20%, 25%) scale(0.85); opacity: 0.4; }
+      100% { transform: translate(10%, -30%) scale(1.1); opacity: 0.3; }
+    }
+    @keyframes driftFour {
+      0% { transform: translate(-30%, 20%) scale(0.8); opacity: 0.15; }
+      50% { transform: translate(25%, -20%) scale(1.2); opacity: 0.35; }
+      100% { transform: translate(-30%, 20%) scale(0.8); opacity: 0.15; }
+    }
+
+    .ambient-light-1 { animation: driftOne 16s ease-in-out infinite alternate; }
+    .ambient-light-2 { animation: driftTwo 20s ease-in-out infinite alternate; }
+    .ambient-light-3 { animation: driftThree 18s ease-in-out infinite alternate; }
+    .ambient-light-4 { animation: driftFour 22s ease-in-out infinite alternate; }
+
+    /* Clockwise Rotating RGB Border Beam Hover Effect for Active Cards */
+    @keyframes rotateRGB {
+      0% { transform: translate(-50%, -50%) rotate(0deg); }
+      100% { transform: translate(-50%, -50%) rotate(360deg); }
+    }
+
+    .rgb-card {
+      position: relative;
+      border-radius: 1.25rem;
+      padding: 1.8px;
+      background: #1e293b;
+      overflow: hidden;
+      transition: box-shadow 0.4s ease, transform 0.3s ease;
+    }
+
+    .rgb-card::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 280%;
+      height: 280%;
+      background: conic-gradient(
+        from 0deg,
+        transparent 0deg,
+        #38bdf8 60deg,
+        #a855f7 120deg,
+        #ec4899 180deg,
+        #10b981 240deg,
+        #f59e0b 300deg,
+        transparent 360deg
+      );
+      transform: translate(-50%, -50%) rotate(0deg);
+      opacity: 0;
+      transition: opacity 0.45s ease;
+      pointer-events: none;
+    }
+
+    .rgb-card:hover::before {
+      opacity: 1;
+      animation: rotateRGB 3.5s linear infinite;
+    }
+
+    .rgb-card:hover {
+      box-shadow: 0 12px 35px -10px rgba(56, 189, 248, 0.25);
+      transform: translateY(-2px);
+    }
+
+    .rgb-card-inner {
+      position: relative;
+      z-index: 10;
+      background-color: #0f172a;
+      border-radius: calc(1.25rem - 1.8px);
+      height: 100%;
+      width: 100%;
+    }
+  </style>
+</head>
+<body class="bg-dark-base text-slate-300 font-sans antialiased min-h-screen selection:bg-tech-blue selection:text-slate-900">
+
+  <!-- ================= NAVIGATION ================= -->
+  <nav class="sticky top-0 z-50 bg-dark-base/85 backdrop-blur-md border-b border-dark-border">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      
+      <!-- Brand Logo -->
+      <a href="index.html" class="flex items-center space-x-3">
+         <div class="bg-dark-card border border-dark-border p-2 rounded-lg text-tech-blue">
+           <i data-lucide="cpu" class="w-6 h-6"></i>
+          </div>
+          <div>
+            <span class="font-black text-xl sm:text-2xl text-white tracking-wider">SPECTRUM </span>
+            <span class="block text-[10px] tracking-widest uppercase text-slate-400 font-medium">The Electronics & Robotics Club</span>
+          </div>
+      </a>
+
+      <!-- Navigation Links -->
+      <div class="flex items-center space-x-4 sm:space-x-6 text-sm font-medium">
+        <a href="index.html" class="text-slate-400 hover:text-white transition">Home</a>
+        <a href="index.html#about" class="text-slate-400 hover:text-white transition">About</a>
+        <a href="index.html#domains" class="text-slate-400 hover:text-white transition">Domains</a>
+        <a href="team.html" class="text-slate-400 hover:text-white transition">Team</a>
+        <a href="index.html#contact" class="text-slate-400 hover:text-white transition">Contact</a>
+
+        <!-- Highlighted Events & Updates Button -->
+        <a href="events.html" class="bg-tech-blue hover:bg-tech-blueHover text-slate-900 font-bold px-3.5 py-1.5 rounded-lg text-xs sm:text-sm transition flex items-center space-x-1.5 shadow-md shadow-tech-blue/20">
+          <i data-lucide="calendar" class="w-3.5 h-3.5"></i>
+          <span>Events & Updates</span>
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ================= HERO ================= -->
+  <header class="relative py-20 sm:py-24 border-b border-dark-border text-center overflow-hidden bg-dark-base">
+    <div class="absolute inset-0 pointer-events-none overflow-hidden z-0">
+      <div class="ambient-light-1 absolute top-1/4 left-1/4 w-[380px] h-[380px] rounded-full bg-sky-500 blur-[120px]"></div>
+      <div class="ambient-light-2 absolute top-1/3 right-1/4 w-[420px] h-[420px] rounded-full bg-purple-600 blur-[130px]"></div>
+      <div class="ambient-light-3 absolute -bottom-10 left-1/3 w-[350px] h-[350px] rounded-full bg-emerald-500 blur-[110px]"></div>
+      <div class="ambient-light-4 absolute top-10 right-1/3 w-[360px] h-[360px] rounded-full bg-rose-500 blur-[125px]"></div>
+    </div>
+
+    <div class="max-w-4xl mx-auto px-4 relative z-10 space-y-3">
+      <div class="inline-flex items-center space-x-2 bg-dark-card/80 backdrop-blur-md border border-slate-700/60 text-tech-blue px-3.5 py-1 rounded-full text-xs font-mono uppercase tracking-widest shadow-lg">
+        <i data-lucide="calendar" class="w-3.5 h-3.5"></i>
+        <span>Official Event Registry</span>
+      </div>
+      <h1 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight drop-shadow-md">
+        Events & Updates
+      </h1>
+      <p class="text-slate-300 text-xs sm:text-sm max-w-lg mx-auto leading-relaxed drop-shadow">
+        Browse live opportunities, ongoing recruitment, competitions, and historical archived sessions.
+      </p>
+    </div>
+  </header>
+
+  <!-- ================= MAIN CONTENT ================= -->
+  <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-24">
+
+    <!-- ============================================================ -->
+    <!-- 1. ACTIVE EVENTS SECTION (STRICTLY ONE COLUMN)               -->
+    <!-- ============================================================ -->
+    <section>
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8 pb-3 border-b border-dark-border">
+        <div>
+          <div class="inline-flex items-center space-x-2 text-tech-blue text-[11px] font-mono font-bold uppercase tracking-wider mb-1">
+            <span class="w-2 h-2 rounded-full bg-tech-blue animate-pulse"></span>
+            <span>Live Schedule</span>
+          </div>
+          <h2 class="text-2xl font-extrabold text-white tracking-tight">Active Events</h2>
+        </div>
+
+        <!-- Filter Tabs for Active Events -->
+        <div class="flex flex-wrap gap-1.5 text-xs font-medium bg-dark-card p-1 rounded-lg border border-dark-border self-start sm:self-auto">
+          <button onclick="filterActive('all')" class="tab-btn active-tab px-3 py-1.5 rounded-md transition" data-filter="all">All</button>
+          <button onclick="filterActive('workshop')" class="tab-btn px-3 py-1.5 rounded-md text-slate-400 hover:text-white transition" data-filter="workshop">Workshop</button>
+          <button onclick="filterActive('recruitment')" class="tab-btn px-3 py-1.5 rounded-md text-slate-400 hover:text-white transition" data-filter="recruitment">Recruitment</button>
+          <button onclick="filterActive('competition')" class="tab-btn px-3 py-1.5 rounded-md text-slate-400 hover:text-white transition" data-filter="competition">Competition</button>
+          <button onclick="filterActive('expo')" class="tab-btn px-3 py-1.5 rounded-md text-slate-400 hover:text-white transition" data-filter="expo">Project Expo</button>
+        </div>
+      </div>
+
+      <!-- ONE COLUMN ACTIVE FEED -->
+      <div id="active-feed" class="space-y-6">
+
+        <!-- Active 1: WORKSHOP -->
+        <div class="active-item workshop rgb-card">
+          <div class="rgb-card-inner p-6 sm:p-7">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-4 border-b border-dark-border">
+              <div class="flex items-center space-x-2.5">
+                <span class="px-3 py-1 rounded bg-sky-950/80 text-tech-blue border border-sky-800 text-xs font-mono font-bold tracking-wide uppercase flex items-center gap-1.5">
+                  <i data-lucide="wrench" class="w-3.5 h-3.5"></i>
+                  <span>WORKSHOP</span>
+                </span>
+                <span class="text-xs text-slate-400 font-mono">October 18 - 19, 2025</span>
+              </div>
+              <span class="text-xs font-mono font-semibold text-emerald-400 bg-emerald-950/60 border border-emerald-800 px-2.5 py-0.5 rounded-full self-start sm:self-auto">
+                Registrations Open
+              </span>
+            </div>
+
+            <div class="my-4">
+              <h3 class="text-lg sm:text-xl font-bold text-white mb-2">Autonomous Mobile Robotics with ROS 2</h3>
+              <p class="text-xs sm:text-sm text-slate-400 leading-relaxed mb-4">
+                Two-day intensive hands-on bootcamp covering robot kinematics, LiDAR SLAM mapping, and simulated Gazebo environments. Hardware kits provided for in-person attendees.
+              </p>
+              <div class="flex flex-wrap gap-2">
+                <span class="text-[11px] bg-dark-base px-2.5 py-1 rounded border border-dark-border text-slate-300 font-mono">ROS 2</span>
+                <span class="text-[11px] bg-dark-base px-2.5 py-1 rounded border border-dark-border text-slate-300 font-mono">SLAM</span>
+                <span class="text-[11px] bg-dark-base px-2.5 py-1 rounded border border-dark-border text-slate-300 font-mono">Gazebo Sim</span>
+              </div>
+            </div>
+
+            <!-- Contact Numbers & Action Buttons (Active Only) -->
+            <div class="pt-4 border-t border-dark-border flex flex-col sm:flex-row sm:items-center justify-between gap-4 text-xs">
+              <div class="space-y-1">
+                <p class="text-slate-400 flex items-center gap-1.5 font-mono">
+                  <i data-lucide="map-pin" class="w-4 h-4 text-tech-blue"></i>
+                  <span>Robotics Lab 2, Main Campus</span>
+                </p>
+                <p class="text-slate-300 flex items-center gap-1.5 font-mono">
+                  <i data-lucide="phone-call" class="w-4 h-4 text-tech-blue"></i>
+                  <span>Coordinator: <a href="tel:+919876543211" class="text-tech-blue font-bold hover:underline">+91 98765 43211</a></span>
+                </p>
+              </div>
+
+              <div class="flex items-center space-x-3">
+                <a href="https://forms.google.com" target="_blank" class="px-5 py-2.5 text-xs font-bold bg-tech-blue hover:bg-tech-blueHover text-slate-900 rounded-lg transition shadow-md shadow-tech-blue/20 flex items-center space-x-1.5">
+                  <span>Open Registration Form</span>
+                  <i data-lucide="arrow-up-right" class="w-3.5 h-3.5"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Active 2: RECRUITMENT -->
+        <div class="active-item recruitment rgb-card">
+          <div class="rgb-card-inner p-6 sm:p-7">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-4 border-b border-dark-border">
+              <div class="flex items-center space-x-2.5">
+                <span class="px-3 py-1 rounded bg-emerald-950/80 text-emerald-400 border border-emerald-800 text-xs font-mono font-bold tracking-wide uppercase flex items-center gap-1.5">
+                  <i data-lucide="user-plus" class="w-3.5 h-3.5"></i>
+                  <span>RECRUITMENT</span>
+                </span>
+                <span class="text-xs text-slate-400 font-mono">Autumn Session 2025</span>
+              </div>
+              <span class="text-xs font-mono font-semibold text-emerald-400 bg-emerald-950/60 border border-emerald-800 px-2.5 py-0.5 rounded-full self-start sm:self-auto">
+                Applications Live
+              </span>
+            </div>
+
+            <div class="my-4">
+              <h3 class="text-lg sm:text-xl font-bold text-white mb-2">Annual Batch Induction (Year 1 & 2)</h3>
+              <p class="text-xs sm:text-sm text-slate-400 leading-relaxed mb-4">
+                Our official once-a-year member recruitment across Embedded Systems, Robotics, VLSI, and AI/ML. Candidates will undergo basic screening followed by a hands-on technical task.
+              </p>
+              <div class="flex flex-wrap gap-2">
+                <span class="text-[11px] bg-dark-base px-2.5 py-1 rounded border border-dark-border text-slate-300 font-mono">All 4 Domains</span>
+                <span class="text-[11px] bg-dark-base px-2.5 py-1 rounded border border-dark-border text-slate-300 font-mono">Annual Window</span>
+              </div>
+            </div>
+
+            <!-- Contact Numbers & Action Buttons (Active Only) -->
+            <div class="pt-4 border-t border-dark-border flex flex-col sm:flex-row sm:items-center justify-between gap-4 text-xs">
+              <div class="space-y-1">
+                <p class="text-slate-400 flex items-center gap-1.5 font-mono">
+                  <i data-lucide="info" class="w-4 h-4 text-tech-blue"></i>
+                  <span>Notice Board & Online Portal</span>
+                </p>
+                <p class="text-slate-300 flex items-center gap-1.5 font-mono">
+                  <i data-lucide="phone-call" class="w-4 h-4 text-tech-blue"></i>
+                  <span>Recruitment Lead: <a href="tel:+919876543210" class="text-tech-blue font-bold hover:underline">+91 98765 43210</a></span>
+                </p>
+              </div>
+
+              <div class="flex items-center space-x-3">
+                <a href="https://forms.google.com" target="_blank" class="px-5 py-2.5 text-xs font-bold bg-tech-blue hover:bg-tech-blueHover text-slate-900 rounded-lg transition shadow-md shadow-tech-blue/20 flex items-center space-x-1.5">
+                  <span>Fill Application Form</span>
+                  <i data-lucide="arrow-up-right" class="w-3.5 h-3.5"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Active 3: COMPETITION -->
+        <div class="active-item competition rgb-card">
+          <div class="rgb-card-inner p-6 sm:p-7">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-4 border-b border-dark-border">
+              <div class="flex items-center space-x-2.5">
+                <span class="px-3 py-1 rounded bg-purple-950/80 text-purple-400 border border-purple-800 text-xs font-mono font-bold tracking-wide uppercase flex items-center gap-1.5">
+                  <i data-lucide="trophy" class="w-3.5 h-3.5"></i>
+                  <span>COMPETITION</span>
+                </span>
+                <span class="text-xs text-slate-400 font-mono">November 10, 2025</span>
+              </div>
+              <span class="text-xs font-mono font-semibold text-tech-blue bg-tech-blueMuted border border-tech-blue/40 px-2.5 py-0.5 rounded-full self-start sm:self-auto">
+                Upcoming Challenge
+              </span>
+            </div>
+
+            <div class="my-4">
+              <h3 class="text-lg sm:text-xl font-bold text-white mb-2">LineCraft: Autonomous Bot Racing</h3>
+              <p class="text-xs sm:text-sm text-slate-400 leading-relaxed mb-4">
+                Annual intra-college line follower and maze solver challenge with optical sensor arrays, high-speed PID tuning, and custom-fabricated motor chassis.
+              </p>
+              <div class="flex flex-wrap gap-2">
+                <span class="text-[11px] bg-dark-base px-2.5 py-1 rounded border border-dark-border text-slate-300 font-mono">PID Tuning</span>
+                <span class="text-[11px] bg-dark-base px-2.5 py-1 rounded border border-dark-border text-slate-300 font-mono">Embedded C</span>
+                <span class="text-[11px] bg-dark-base px-2.5 py-1 rounded border border-dark-border text-slate-300 font-mono">Fast Track</span>
+              </div>
+            </div>
+
+            <!-- Contact Numbers & Action Buttons (Active Only) -->
+            <div class="pt-4 border-t border-dark-border flex flex-col sm:flex-row sm:items-center justify-between gap-4 text-xs">
+              <div class="space-y-1">
+                <p class="text-slate-400 flex items-center gap-1.5 font-mono">
+                  <i data-lucide="map-pin" class="w-4 h-4 text-tech-blue"></i>
+                  <span>Central College Auditorium</span>
+                </p>
+                <p class="text-slate-300 flex items-center gap-1.5 font-mono">
+                  <i data-lucide="phone-call" class="w-4 h-4 text-tech-blue"></i>
+                  <span>Event Head: <a href="tel:+919876543213" class="text-tech-blue font-bold hover:underline">+91 98765 43213</a></span>
+                </p>
+              </div>
+
+              <div class="flex items-center space-x-3">
+                <a href="https://forms.google.com" target="_blank" class="px-5 py-2.5 text-xs font-bold bg-tech-blue hover:bg-tech-blueHover text-slate-900 rounded-lg transition shadow-md shadow-tech-blue/20 flex items-center space-x-1.5">
+                  <span>Open Team Entry Form</span>
+                  <i data-lucide="arrow-up-right" class="w-3.5 h-3.5"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Active 4: PROJECT EXPO -->
+        <div class="active-item expo rgb-card">
+          <div class="rgb-card-inner p-6 sm:p-7">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-4 border-b border-dark-border">
+              <div class="flex items-center space-x-2.5">
+                <span class="px-3 py-1 rounded bg-amber-950/80 text-amber-400 border border-amber-800 text-xs font-mono font-bold tracking-wide uppercase flex items-center gap-1.5">
+                  <i data-lucide="layers" class="w-3.5 h-3.5"></i>
+                  <span>PROJECT EXPO</span>
+                </span>
+                <span class="text-xs text-slate-400 font-mono">December 05, 2025</span>
+              </div>
+              <span class="text-xs font-mono font-semibold text-tech-blue bg-tech-blueMuted border border-tech-blue/40 px-2.5 py-0.5 rounded-full self-start sm:self-auto">
+                Call for Demos
+              </span>
+            </div>
+
+            <div class="my-4">
+              <h3 class="text-lg sm:text-xl font-bold text-white mb-2">Hardware Innovation & Bot Expo '25</h3>
+              <p class="text-xs sm:text-sm text-slate-400 leading-relaxed mb-4">
+                Grand exhibition showcasing student-developed hardware prototypes, custom multi-layer PCBs, autonomous rovers, and FPGA-accelerated computing blocks to faculty and industry visitors.
+              </p>
+              <div class="flex flex-wrap gap-2">
+                <span class="text-[11px] bg-dark-base px-2.5 py-1 rounded border border-dark-border text-slate-300 font-mono">Hardware Demos</span>
+                <span class="text-[11px] bg-dark-base px-2.5 py-1 rounded border border-dark-border text-slate-300 font-mono">FPGA & Silicon</span>
+              </div>
+            </div>
+
+            <!-- Contact Numbers & Action Buttons (Active Only) -->
+            <div class="pt-4 border-t border-dark-border flex flex-col sm:flex-row sm:items-center justify-between gap-4 text-xs">
+              <div class="space-y-1">
+                <p class="text-slate-400 flex items-center gap-1.5 font-mono">
+                  <i data-lucide="map-pin" class="w-4 h-4 text-tech-blue"></i>
+                  <span>Innovation Exhibition Hall</span>
+                </p>
+                <p class="text-slate-300 flex items-center gap-1.5 font-mono">
+                  <i data-lucide="phone-call" class="w-4 h-4 text-tech-blue"></i>
+                  <span>Expo Lead: <a href="tel:+919876543214" class="text-tech-blue font-bold hover:underline">+91 98765 43214</a></span>
+                </p>
+              </div>
+
+              <div class="flex items-center space-x-3">
+                <a href="https://forms.google.com" target="_blank" class="px-5 py-2.5 text-xs font-bold bg-tech-blue hover:bg-tech-blueHover text-slate-900 rounded-lg transition shadow-md shadow-tech-blue/20 flex items-center space-x-1.5">
+                  <span>Submit Demo Proposal</span>
+                  <i data-lucide="arrow-up-right" class="w-3.5 h-3.5"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- 2. PAST EVENTS SECTION (GREY COLOUR & STRICTLY ONE COLUMN)   -->
+    <!-- ============================================================ -->
+    <section class="pt-4">
+      <div class="mb-8 pb-3 border-b border-slate-800">
+        <div class="inline-flex items-center space-x-2 text-slate-500 text-[11px] font-mono font-bold uppercase tracking-wider mb-1">
+          <i data-lucide="archive" class="w-3.5 h-3.5 text-slate-500"></i>
+          <span>Archived Records</span>
+        </div>
+        <h2 class="text-2xl font-extrabold text-slate-400 tracking-tight">Past Events</h2>
+        <p class="text-xs text-slate-500 mt-0.5">Concluded workshops, past recruitments, hackathons, and exhibitions.</p>
+      </div>
+
+      <!-- STRICTLY ONE COLUMN GREY CARDS (NO TWO COLUMNS, NO SIDE-BY-SIDE) -->
+      <div class="space-y-6">
+
+        <!-- Past 1: WORKSHOP (Grey Card) -->
+        <div class="p-6 sm:p-7 rounded-2xl bg-slate-900/50 border border-slate-800">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-4 border-b border-slate-800/80">
+            <div class="flex items-center space-x-2.5">
+              <span class="px-3 py-1 rounded bg-slate-800 text-slate-400 border border-slate-700 text-xs font-mono font-bold tracking-wide uppercase flex items-center gap-1.5">
+                <i data-lucide="wrench" class="w-3.5 h-3.5"></i>
+                <span>WORKSHOP</span>
+              </span>
+              <span class="text-xs text-slate-500 font-mono">March 2025</span>
+            </div>
+            <span class="text-xs font-mono text-slate-500 bg-slate-950 border border-slate-800 px-2.5 py-0.5 rounded-full self-start sm:self-auto">
+              Concluded
+            </span>
+          </div>
+
+          <div class="my-4">
+            <h3 class="text-lg sm:text-xl font-bold text-slate-300 mb-2">High-Speed PCB Design with KiCad</h3>
+            <p class="text-xs sm:text-sm text-slate-500 leading-relaxed mb-3">
+              Hands-on workshop covering schematic capture, differential pair routing, ground plane isolation, and Gerber generation for rapid PCB manufacturing.
+            </p>
+            <div class="flex flex-wrap gap-2">
+              <span class="text-[11px] bg-slate-950 px-2.5 py-0.5 rounded border border-slate-800 text-slate-500 font-mono">KiCad</span>
+              <span class="text-[11px] bg-slate-950 px-2.5 py-0.5 rounded border border-slate-800 text-slate-500 font-mono">Hardware Fabrication</span>
+            </div>
+          </div>
+
+          <div class="pt-3 border-t border-slate-800/80 flex justify-between items-center text-xs text-slate-500 font-mono">
+            <span>220 Verified Attendees</span>
+            <span>Archived Session</span>
+          </div>
+        </div>
+
+        <!-- Past 2: RECRUITMENT (Grey Card) -->
+        <div class="p-6 sm:p-7 rounded-2xl bg-slate-900/50 border border-slate-800">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-4 border-b border-slate-800/80">
+            <div class="flex items-center space-x-2.5">
+              <span class="px-3 py-1 rounded bg-slate-800 text-slate-400 border border-slate-700 text-xs font-mono font-bold tracking-wide uppercase flex items-center gap-1.5">
+                <i data-lucide="user-plus" class="w-3.5 h-3.5"></i>
+                <span>RECRUITMENT</span>
+              </span>
+              <span class="text-xs text-slate-500 font-mono">Autumn 2024</span>
+            </div>
+            <span class="text-xs font-mono text-slate-500 bg-slate-950 border border-slate-800 px-2.5 py-0.5 rounded-full self-start sm:self-auto">
+              Completed
+            </span>
+          </div>
+
+          <div class="my-4">
+            <h3 class="text-lg sm:text-xl font-bold text-slate-300 mb-2">Annual Induction Cycle 2024</h3>
+            <p class="text-xs sm:text-sm text-slate-500 leading-relaxed mb-3">
+              Previous annual recruitment cycle where 24 sophomore members were inducted into the core research and development wings after screening and task submissions.
+            </p>
+            <div class="flex flex-wrap gap-2">
+              <span class="text-[11px] bg-slate-950 px-2.5 py-0.5 rounded border border-slate-800 text-slate-500 font-mono">Inducted: 24 Members</span>
+              <span class="text-[11px] bg-slate-950 px-2.5 py-0.5 rounded border border-slate-800 text-slate-500 font-mono">Batch '27</span>
+            </div>
+          </div>
+
+          <div class="pt-3 border-t border-slate-800/80 flex justify-between items-center text-xs text-slate-500 font-mono">
+            <span>Induction Finalized</span>
+            <span>Archived Cycle</span>
+          </div>
+        </div>
+
+        <!-- Past 3: COMPETITION (Grey Card) -->
+        <div class="p-6 sm:p-7 rounded-2xl bg-slate-900/50 border border-slate-800">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-4 border-b border-slate-800/80">
+            <div class="flex items-center space-x-2.5">
+              <span class="px-3 py-1 rounded bg-slate-800 text-slate-400 border border-slate-700 text-xs font-mono font-bold tracking-wide uppercase flex items-center gap-1.5">
+                <i data-lucide="trophy" class="w-3.5 h-3.5"></i>
+                <span>COMPETITION</span>
+              </span>
+              <span class="text-xs text-slate-500 font-mono">November 2024</span>
+            </div>
+            <span class="text-xs font-mono text-slate-500 bg-slate-950 border border-slate-800 px-2.5 py-0.5 rounded-full self-start sm:self-auto">
+              Concluded
+            </span>
+          </div>
+
+          <div class="my-4">
+            <h3 class="text-lg sm:text-xl font-bold text-slate-300 mb-2">GridRunner: Autonomous Maze Solver</h3>
+            <p class="text-xs sm:text-sm text-slate-500 leading-relaxed mb-3">
+              Intra-college autonomous rover challenge with wall-following ultrasonic sensors and flood-fill path-finding algorithms.
+            </p>
+            <div class="flex flex-wrap gap-2">
+              <span class="text-[11px] bg-slate-950 px-2.5 py-0.5 rounded border border-slate-800 text-slate-500 font-mono">Maze Solving</span>
+              <span class="text-[11px] bg-slate-950 px-2.5 py-0.5 rounded border border-slate-800 text-slate-500 font-mono">Flood-Fill</span>
+            </div>
+          </div>
+
+          <div class="pt-3 border-t border-slate-800/80 flex justify-between items-center text-xs text-slate-500 font-mono">
+            <span>16 Competing Teams</span>
+            <span>Archived Session</span>
+          </div>
+        </div>
+
+        <!-- Past 4: PROJECT EXPO (Grey Card) -->
+        <div class="p-6 sm:p-7 rounded-2xl bg-slate-900/50 border border-slate-800">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-4 border-b border-slate-800/80">
+            <div class="flex items-center space-x-2.5">
+              <span class="px-3 py-1 rounded bg-slate-800 text-slate-400 border border-slate-700 text-xs font-mono font-bold tracking-wide uppercase flex items-center gap-1.5">
+                <i data-lucide="layers" class="w-3.5 h-3.5"></i>
+                <span>PROJECT EXPO</span>
+              </span>
+              <span class="text-xs text-slate-500 font-mono">January 2024</span>
+            </div>
+            <span class="text-xs font-mono text-slate-500 bg-slate-950 border border-slate-800 px-2.5 py-0.5 rounded-full self-start sm:self-auto">
+              Concluded
+            </span>
+          </div>
+
+          <div class="my-4">
+            <h3 class="text-lg sm:text-xl font-bold text-slate-300 mb-2">Annual College Robotics Showcase 2024</h3>
+            <p class="text-xs sm:text-sm text-slate-500 leading-relaxed mb-3">
+              Exhibition of 18 autonomous bot prototypes, edge-AI computer vision camera modules, and custom STM32 breakout boards developed during the winter lab cycle.
+            </p>
+            <div class="flex flex-wrap gap-2">
+              <span class="text-[11px] bg-slate-950 px-2.5 py-0.5 rounded border border-slate-800 text-slate-500 font-mono">18 Projects</span>
+              <span class="text-[11px] bg-slate-950 px-2.5 py-0.5 rounded border border-slate-800 text-slate-500 font-mono">Public Exhibition</span>
+            </div>
+          </div>
+
+          <div class="pt-3 border-t border-slate-800/80 flex justify-between items-center text-xs text-slate-500 font-mono">
+            <span>500+ Visitors</span>
+            <span>Archived Session</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="border-t border-dark-border py-8 bg-dark-base text-xs text-slate-500">
+    <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <p>© 2025 Electronics & Robotics Club. Hosted via GitHub Pages.</p>
+      <div class="flex items-center space-x-6 text-slate-400">
+        <a href="index.html" class="hover:text-tech-blue transition">Home</a>
+        <a href="events.html" class="hover:text-tech-blue transition">Events & Updates</a>
+        <a href="team.html" class="hover:text-tech-blue transition">Team</a>
+        <a href="index.html#contact" class="hover:text-tech-blue transition">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ================= JAVASCRIPT ================= -->
+  <script>
+    lucide.createIcons();
+
+    // Event Filter Tab Logic for Active Events
+    function filterActive(category) {
+      const items = document.querySelectorAll('#active-feed .active-item');
+      const buttons = document.querySelectorAll('.tab-btn');
+
+      // Update button styles
+      buttons.forEach(btn => {
+        if (btn.dataset.filter === category) {
+          btn.className = 'tab-btn px-3 py-1.5 rounded-md transition bg-tech-blue text-slate-900 font-bold';
+        } else {
+          btn.className = 'tab-btn px-3 py-1.5 rounded-md text-slate-400 hover:text-white transition';
+        }
+      });
+
+      // Filter active items
+      items.forEach(item => {
+        if (category === 'all' || item.classList.contains(category)) {
+          item.classList.remove('hidden');
+        } else {
+          item.classList.add('hidden');
+        }
+      });
+    }
+
+    // Set initial active tab state
+    document.querySelector('[data-filter="all"]').className = 'tab-btn px-3 py-1.5 rounded-md transition bg-tech-blue text-slate-900 font-bold';
+  </script>
+</body>
+</html>
